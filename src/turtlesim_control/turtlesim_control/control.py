@@ -8,6 +8,7 @@ from nav_msgs.msg import Odometry
 from tf_transformations import euler_from_quaternion
 import angles
 import numpy as np
+import math
 
 #import rospy
 
@@ -71,7 +72,7 @@ class Turtle_Controller(Node):
         self.euler_orientation=euler_from_quaternion([
 		self.current_pose_quaternion.pose.pose.position.x,
 		self.current_pose_quaternion.pose.pose.position.y,
-		self.current_pose_quaterion.pose.pose.position.z,
+		self.current_pose_quaternion.pose.pose.position.z,
 		self.current_pose_quaternion.pose.pose.position.w,
 ])
         self.current_pose.x=self.current_pose_quaternion.pose.pose.position.x

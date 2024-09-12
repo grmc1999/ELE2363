@@ -24,7 +24,7 @@ class Turtle_Controller(Node):
         #self.K_z=0.5
         self.declare_parameter('K_z','0.1')
 #        self.current_pose=Pose()
-        self.current_pose=Odometry()
+        self.current_pose=Pose()
         #self.current_pose.x=5.0
         #self.current_pose.y=5.0
         #self.current_pose.theta=0.0

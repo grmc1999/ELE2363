@@ -23,7 +23,7 @@ class Turtle_Controller(Node):
         #self.K_z=0.5
         self.declare_parameter('K_z','0.1')
 #        self.current_pose=Pose()
-	self.current_pose=Odometry()
+	    self.current_pose=Odometry()
         #self.current_pose.x=5.0
         #self.current_pose.y=5.0
         #self.current_pose.theta=0.0
@@ -63,21 +63,21 @@ class Turtle_Controller(Node):
         #self.listener_callback(msg)
         #compute plain and angular distance
         self.current_pose_quaternion=msg
-	self.current_pose=Pose()
+	    self.current_pose=Pose()
 	
         self.plain_distance=(
             (self.current_pose_quaternion.pose.pose.position.x-self.goal_pose.x)**2+\
             (self.current_pose_quaternion.pose.pose.position.y-self.goal_pose.y)**2)**0.5
-	self.euler_orientation=euler_from_quaternion([
+	    self.euler_orientation=euler_from_quaternion([
 		self.current_pose_quaternion.pose.pose.position.x,
 		self.current_pose_quaternion.pose.pose.position.y,
 		self.current_pose_quaterion.pose.pose.position.z,
 		self.current_pose_quaternion.pose.pose.position.w,
 ])
         self.current_pose.x=self.current_pose_quaternion.pose.pose.position.x
-	self.current_pose.y=self.current_pose_quaternion.pose.pose.position.y
-	self.current_pose.theta=self.euler_orientation[2]
-	self.angular_distance=np.abs(angles.shortest_angular_distance(self.euler_orientation[2],self.goal_pose.theta))
+	    self.current_pose.y=self.current_pose_quaternion.pose.pose.position.y
+	    self.current_pose.theta=self.euler_orientation[2]
+	    self.angular_distance=np.abs(angles.shortest_angular_distance(self.euler_orientation[2],self.goal_pose.theta))
 
     def listener_callback(self, msg):
         self.get_logger().info('I heard: "%s"' % msg.data)
@@ -98,7 +98,7 @@ class Turtle_Controller(Node):
     def pose_distance(self,cp,gp):
         dp=Pose()
         dp.x,dp.y=gp.x-cp.x,gp.y-cp.y
-	theta=math.atan2(x,y)
+	    theta=math.atan2(x,y)
         dp.theta=-angles.shortest_angular_distance(gp.theta,theta)
         return dp
     

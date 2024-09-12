@@ -2,8 +2,10 @@ import rclpy
 from rclpy.node import Node
 
 from std_msgs.msg import String
-from geometry_msgs.msg import Twist
+from geometry_msgs.msg import Twist,Pose2D
 from turtlesim.msg import Pose
+from nav_msgs.msg import Odometry
+from tf_transformations import euler_from_quaternion
 import angles
 import numpy as np
 
@@ -20,7 +22,8 @@ class Turtle_Controller(Node):
         self.declare_parameter('K_y','0.1')
         #self.K_z=0.5
         self.declare_parameter('K_z','0.1')
-        self.current_pose=Pose()
+#        self.current_pose=Pose()
+	self.current_pose=Odometry()
         #self.current_pose.x=5.0
         #self.current_pose.y=5.0
         #self.current_pose.theta=0.0
@@ -30,16 +33,22 @@ class Turtle_Controller(Node):
         #self.goal_pose.theta=0.0
 
         self.goal_subscription = self.create_subscription(
-            Pose,'turtle1/goal',
+            Pose,'local/goal',
             self.set_goal,10)
         
         self.current_pose_subscription = self.create_subscription(
-            Pose,'turtle1/pose',
+            Odometry,
+	#'turtle1/pose',
+	'diff_drive_controller/odom',
             self.get_current_pose,10)
         
         self.velocity_publisher = self.create_publisher(
             Twist,
-            'turtle1/cmd_vel',10)
+		'diff_drive_controller/cmd_vel',
+#		'turtle/cmd_vel',
+		10)
+#            'turtle1/cmd_vel',10)
+
         
         timer_period = 0.1  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
@@ -53,11 +62,22 @@ class Turtle_Controller(Node):
     def get_current_pose(self,msg):
         #self.listener_callback(msg)
         #compute plain and angular distance
-        self.current_pose=msg
+        self.current_pose_quaternion=msg
+	self.current_pose=Pose()
+	
         self.plain_distance=(
-            (self.current_pose.x-self.goal_pose.x)**2+\
-            (self.current_pose.y-self.goal_pose.y)**2)**0.5
-        self.angular_distance=np.abs(angles.shortest_angular_distance(self.current_pose.theta,self.goal_pose.theta))
+            (self.current_pose_quaternion.pose.pose.position.x-self.goal_pose.x)**2+\
+            (self.current_pose_quaternion.pose.pose.position.y-self.goal_pose.y)**2)**0.5
+	self.euler_orientation=euler_from_quaternion([
+		self.current_pose_quaternion.pose.pose.position.x,
+		self.current_pose_quaternion.pose.pose.position.y,
+		self.current_pose_quaterion.pose.pose.position.z,
+		self.current_pose_quaternion.pose.pose.position.w,
+])
+        self.current_pose.x=self.current_pose_quaternion.pose.pose.position.x
+	self.current_pose.y=self.current_pose_quaternion.pose.pose.position.y
+	self.current_pose.theta=self.euler_orientation[2]
+	self.angular_distance=np.abs(angles.shortest_angular_distance(self.euler_orientation[2],self.goal_pose.theta))
 
     def listener_callback(self, msg):
         self.get_logger().info('I heard: "%s"' % msg.data)
@@ -68,17 +88,18 @@ class Turtle_Controller(Node):
         pd=self.pose_distance(self.current_pose,self.goal_pose)
         v_u.linear.x,v_u.linear.y,v_u.angular.z=self.K_x*pd.x,self.K_y*pd.y,self.K_z*pd.theta
         #Transform to turtle axes:
-        rot_matrix=np.array([[np.cos(self.current_pose.theta),np.sin(self.current_pose.theta)],
-                  [-np.sin(self.current_pose.theta),np.cos(self.current_pose.theta)]])
-        turtle_coords=np.matmul(rot_matrix,np.array([[self.K_x*pd.x],[self.K_y*pd.y]]))
-        v_u.linear.x,v_u.linear.y=turtle_coords[0,0],turtle_coords[1,0]
+#        rot_matrix=np.array([[np.cos(self.current_pose.theta),np.sin(self.current_pose.theta)],
+#                  [-np.sin(self.current_pose.theta),np.cos(self.current_pose.theta)]])
+#        turtle_coords=np.matmul(rot_matrix,np.array([[self.K_x*pd.x],[self.K_y*pd.y]]))
+#        v_u.linear.x,v_u.linear.y=turtle_coords[0,0],turtle_coords[1,0]
         #v_u.linear.x,v_u.linear.y=turtle_coords[1,0],turtle_coords[0,0]
         self.velocity_publisher.publish(v_u)
 
     def pose_distance(self,cp,gp):
         dp=Pose()
         dp.x,dp.y=gp.x-cp.x,gp.y-cp.y
-        dp.theta=-angles.shortest_angular_distance(gp.theta,cp.theta)
+	theta=math.atan2(x,y)
+        dp.theta=-angles.shortest_angular_distance(gp.theta,theta)
         return dp
     
     def set_gains(self):

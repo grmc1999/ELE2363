@@ -2,7 +2,7 @@ import rclpy
 from rclpy.node import Node
 
 from std_msgs.msg import String
-from geometry_msgs.msg import Twist,Pose2D
+from geometry_msgs.msg import Twist,Pose2D,TwistStamped
 from turtlesim.msg import Pose
 from nav_msgs.msg import Odometry
 from tf_transformations import euler_from_quaternion
@@ -44,7 +44,7 @@ class Turtle_Controller(Node):
             self.get_current_pose,10)
         
         self.velocity_publisher = self.create_publisher(
-            Twist,
+            TwistStamped,
 		'diff_drive_controller/cmd_vel',
 #		'turtle/cmd_vel',
 		10)
@@ -85,9 +85,9 @@ class Turtle_Controller(Node):
 
     def timer_callback(self):
         self.set_gains()
-        v_u=Twist()
+        v_u=TwistStamped()
         pd=self.pose_distance(self.current_pose,self.goal_pose)
-        v_u.linear.x,v_u.linear.y,v_u.angular.z=self.K_x*pd.x,self.K_y*pd.y,self.K_z*pd.theta
+        v_u.twist.linear.x,v_u.twist.angular.z=self.K_x*pd.x,self.K_z*pd.theta
         #Transform to turtle axes:
 #        rot_matrix=np.array([[np.cos(self.current_pose.theta),np.sin(self.current_pose.theta)],
 #                  [-np.sin(self.current_pose.theta),np.cos(self.current_pose.theta)]])

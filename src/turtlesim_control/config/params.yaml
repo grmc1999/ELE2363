@@ -1,0 +1,5 @@
+/control_ns:
+  ros__parameters:
+    K_x: '2.7'
+    K_y: '2.7'
+    K_z: '1.9'

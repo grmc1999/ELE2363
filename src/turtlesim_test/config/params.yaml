@@ -1,0 +1,5 @@
+/turtle/control_ns:
+  ros__parameters:
+    K_x: '0.2'
+    K_y: '0.2'
+    K_z: '0.2'

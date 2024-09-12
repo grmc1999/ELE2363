@@ -70,10 +70,10 @@ class Turtle_Controller(Node):
             (self.current_pose_quaternion.pose.pose.position.x-self.goal_pose.x)**2+\
             (self.current_pose_quaternion.pose.pose.position.y-self.goal_pose.y)**2)**0.5
         self.euler_orientation=euler_from_quaternion([
-		self.current_pose_quaternion.pose.pose.position.x,
-		self.current_pose_quaternion.pose.pose.position.y,
-		self.current_pose_quaternion.pose.pose.position.z,
-		self.current_pose_quaternion.pose.pose.position.w,
+		self.current_pose_quaternion.pose.pose.orientation.x,
+		self.current_pose_quaternion.pose.pose.orientation.y,
+		self.current_pose_quaternion.pose.pose.orientation.z,
+		self.current_pose_quaternion.pose.pose.orientation.w,
 ])
         self.current_pose.x=self.current_pose_quaternion.pose.pose.position.x
         self.current_pose.y=self.current_pose_quaternion.pose.pose.position.y

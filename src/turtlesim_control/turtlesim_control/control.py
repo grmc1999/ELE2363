@@ -18,11 +18,11 @@ class Turtle_Controller(Node):
     def __init__(self):
         super().__init__('Turtle_Controller')
         #self.K_x=0.5
-        self.declare_parameter('K_x','0.1')
+        self.declare_parameter('K_x',0.1)
         #self.K_y=0.5
-        self.declare_parameter('K_y','0.1')
+        self.declare_parameter('K_y',0.1)
         #self.K_z=0.5
-        self.declare_parameter('K_z','0.1')
+        self.declare_parameter('K_z',0.1)
 #        self.current_pose=Pose()
         self.current_pose=Pose()
         #self.current_pose.x=5.0
@@ -105,9 +105,9 @@ class Turtle_Controller(Node):
         return dp
     
     def set_gains(self):
-        self.K_x=float(self.get_parameter('K_x').get_parameter_value().string_value)
-        self.K_y=float(self.get_parameter('K_y').get_parameter_value().string_value)
-        self.K_z=float(self.get_parameter('K_z').get_parameter_value().string_value)
+        self.K_x=float(self.get_parameter('K_x').get_parameter_value().double_value)
+        self.K_y=float(self.get_parameter('K_y').get_parameter_value().double_value)
+        self.K_z=float(self.get_parameter('K_z').get_parameter_value().double_value)
 
 def main(args=None):
     rclpy.init(args=args)

@@ -2,4 +2,4 @@
   ros__parameters:
     K_x: '1.0'
     K_y: '1.0'
-    K_z: '0.1'
+    K_z: '0.5'

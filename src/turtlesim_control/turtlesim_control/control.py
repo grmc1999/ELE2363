@@ -66,15 +66,15 @@ class Turtle_Controller(Node):
         self.current_pose_quaternion=msg
         self.current_pose=Pose()
 	
-        self.plain_distance=(
-            (self.current_pose_quaternion.pose.pose.position.x-self.goal_pose.x)**2+\
-            (self.current_pose_quaternion.pose.pose.position.y-self.goal_pose.y)**2)**0.5
+        #self.plain_distance=(
+        #    (self.current_pose_quaternion.pose.pose.position.x-self.goal_pose.x)**2+\
+        #    (self.current_pose_quaternion.pose.pose.position.y-self.goal_pose.y)**2)**0.5
         self.euler_orientation=euler_from_quaternion([
 		self.current_pose_quaternion.pose.pose.orientation.x,
 		self.current_pose_quaternion.pose.pose.orientation.y,
 		self.current_pose_quaternion.pose.pose.orientation.z,
 		self.current_pose_quaternion.pose.pose.orientation.w,
-])
+        ])
         self.current_pose.x=self.current_pose_quaternion.pose.pose.position.x
         self.current_pose.y=self.current_pose_quaternion.pose.pose.position.y
         self.current_pose.theta=self.euler_orientation[2]
@@ -86,16 +86,11 @@ class Turtle_Controller(Node):
     def timer_callback(self):
         self.set_gains()
         v_u=TwistStamped()
-        pd=self.pose_distance(self.current_pose,self.goal_pose)
-        v_u.twist.linear.x,v_u.twist.angular.z=self.K_x*pd.x,self.K_z*pd.theta
-        #Transform to turtle axes:
-#        rot_matrix=np.array([[np.cos(self.current_pose.theta),np.sin(self.current_pose.theta)],
-#                  [-np.sin(self.current_pose.theta),np.cos(self.current_pose.theta)]])
-#        turtle_coords=np.matmul(rot_matrix,np.array([[self.K_x*pd.x],[self.K_y*pd.y]]))
-#        v_u.linear.x,v_u.linear.y=turtle_coords[0,0],turtle_coords[1,0]
-        #v_u.linear.x,v_u.linear.y=turtle_coords[1,0],turtle_coords[0,0]
-
         if self.goal_pose!=None:
+            pd=self.pose_distance(self.current_pose,self.goal_pose)
+            v_u.twist.linear.x,v_u.twist.angular.z=self.K_x*pd.x,self.K_z*pd.theta
+
+        
             self.velocity_publisher.publish(v_u)
 
     def pose_distance(self,cp,gp):

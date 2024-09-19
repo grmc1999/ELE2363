@@ -95,8 +95,8 @@ class Turtle_Controller(Node):
 #        v_u.linear.x,v_u.linear.y=turtle_coords[0,0],turtle_coords[1,0]
         #v_u.linear.x,v_u.linear.y=turtle_coords[1,0],turtle_coords[0,0]
 
-    if self.goal_pose!=None:
-        self.velocity_publisher.publish(v_u)
+        if self.goal_pose!=None:
+            self.velocity_publisher.publish(v_u)
 
     def pose_distance(self,cp,gp):
         dp=Pose()

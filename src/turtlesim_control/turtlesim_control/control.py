@@ -78,7 +78,7 @@ class Turtle_Controller(Node):
         self.current_pose.x=self.current_pose_quaternion.pose.pose.position.x
         self.current_pose.y=self.current_pose_quaternion.pose.pose.position.y
         self.current_pose.theta=self.euler_orientation[2]
-        self.angular_distance=np.abs(angles.shortest_angular_distance(self.euler_orientation[2],self.goal_pose.theta))
+        #self.angular_distance=np.abs(angles.shortest_angular_distance(self.euler_orientation[2],self.goal_pose.theta))
 
     def listener_callback(self, msg):
         self.get_logger().info('I heard: "%s"' % msg.data)

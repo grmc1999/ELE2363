@@ -28,7 +28,7 @@ class Turtle_Controller(Node):
         #self.current_pose.x=5.0
         #self.current_pose.y=5.0
         #self.current_pose.theta=0.0
-        self.goal_pose=Pose()
+        self.goal_pose=None
         #self.goal_pose.x=5.0
         #self.goal_pose.y=5.0
         #self.goal_pose.theta=0.0
@@ -94,12 +94,13 @@ class Turtle_Controller(Node):
 #        turtle_coords=np.matmul(rot_matrix,np.array([[self.K_x*pd.x],[self.K_y*pd.y]]))
 #        v_u.linear.x,v_u.linear.y=turtle_coords[0,0],turtle_coords[1,0]
         #v_u.linear.x,v_u.linear.y=turtle_coords[1,0],turtle_coords[0,0]
-        self.velocity_publisher.publish(v_u)
+	if self.goal_pose!=None:
+	        self.velocity_publisher.publish(v_u)
 
     def pose_distance(self,cp,gp):
         dp=Pose()
         dp.x,dp.y=gp.x-cp.x,gp.y-cp.y
-        theta=math.atan2(dp.x,dp.y)
+        theta=math.atan2(dp.y,dp.x)
         dp.x=math.sqrt(dp.x**2+dp.y**2)
         dp.theta=-angles.shortest_angular_distance(cp.theta,theta)
         return dp

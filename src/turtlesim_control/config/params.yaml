@@ -1,5 +1,5 @@
 /control_ns:
   ros__parameters:
-    K_x: 0.01
+    K_x: 0.0
     K_y: 0.01
-    K_z: 0.001
+    K_z: 0.0

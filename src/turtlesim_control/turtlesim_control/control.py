@@ -100,6 +100,7 @@ class Turtle_Controller(Node):
         dp=Pose()
         dp.x,dp.y=gp.x-cp.x,gp.y-cp.y
         theta=math.atan2(dp.x,dp.y)
+        dp.x=math.sqrt(dp.x**2+dp.y**2)
         dp.theta=-angles.shortest_angular_distance(gp.theta,theta)
         return dp
     

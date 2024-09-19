@@ -94,6 +94,7 @@ class Turtle_Controller(Node):
 #        turtle_coords=np.matmul(rot_matrix,np.array([[self.K_x*pd.x],[self.K_y*pd.y]]))
 #        v_u.linear.x,v_u.linear.y=turtle_coords[0,0],turtle_coords[1,0]
         #v_u.linear.x,v_u.linear.y=turtle_coords[1,0],turtle_coords[0,0]
+
 	if self.goal_pose!=None:
 	        self.velocity_publisher.publish(v_u)
 

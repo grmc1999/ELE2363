@@ -11,7 +11,7 @@ setup(
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
         ('share/' + package_name, ['launch/turtle_control_launch.py']),
-        #('share/' + package_name, ['config/params.yaml']),
+        ('share/' + package_name, ['config/params.yaml']),
     ],
     install_requires=['setuptools'],
     zip_safe=True,

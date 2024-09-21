@@ -1,10 +1,10 @@
 /control_ns:
   ros__parameters:
-    K_x: 0.0
+    K_x: 0.01
     K_y: 0.01
-    K_z: 0.0
+    K_z: 0.1
 
 /sender_ns:
   ros__parameters:
-    K_x_th: 0.0
-    K_z_th: 0.0
+    K_x_th: 0.1
+    K_z_th: 0.1

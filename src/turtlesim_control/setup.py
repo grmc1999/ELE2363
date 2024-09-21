@@ -24,6 +24,7 @@ setup(
         'console_scripts': [
             "turtlesim_control_node = turtlesim_control.control:main",
             "turtlesim_sender_node = turtlesim_control.goal_sender:main",
+            "turtlesim_line_node = turtlesim_control.control_line:main",
         ],
     },
 )

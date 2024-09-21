@@ -107,7 +107,7 @@ class Turtle_Controller(Node):
         v_u=TwistStamped()
         if self.goal_pose!=None:
             pd=self.pose_distance(self.current_pose,self.goal_pose)
-            v_u.twist.linear.x=0.02
+            v_u.twist.linear.x=0.002
             v_u.twist.angular.z=self.K_z*pd.theta
 
         

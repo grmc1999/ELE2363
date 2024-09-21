@@ -5,7 +5,7 @@ from std_msgs.msg import String
 from geometry_msgs.msg import Twist,Pose2D,TwistStamped
 from turtlesim.msg import Pose
 from nav_msgs.msg import Odometry
-from gpg_remote.msg import State
+from gpg_remote_msgs.msg import State
 from tf_transformations import euler_from_quaternion
 import angles
 import numpy as np

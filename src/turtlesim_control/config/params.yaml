@@ -8,5 +8,5 @@
   ros__parameters:
     K_x_th: 0.01
     K_z_th: 0.01
-    x_max: 2
-    y_max: 2
+    x_max: 2.0
+    y_max: 2.0

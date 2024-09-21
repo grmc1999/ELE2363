@@ -4,8 +4,10 @@ from rclpy.node import Node
 from std_msgs.msg import String
 from geometry_msgs.msg import Twist
 from turtlesim.msg import Pose
+from nav_msgs.msg import Odometry
 import angles
 import numpy as np
+from tf_transformations import euler_from_quaternion
 
 
 class Turtle_Goal_Sender(Node):
@@ -23,10 +25,10 @@ class Turtle_Goal_Sender(Node):
         self.generate_pose()
         self.goal_publisher = self.create_publisher(
             Pose,
-            '/local/goal',10)
+            'local/goal',10)
         self.pose_subscriber = self.create_subscription(
-            Pose,
-            '/local/pose',
+            Odometry,
+            'diff_drive_controller/odom',
             self.listener_callback,
             10)
         
@@ -40,15 +42,36 @@ class Turtle_Goal_Sender(Node):
     
     def listener_callback(self, msg):
         self.set_th()
+        self.get_current_pose(msg)
         self.plain_distance=(
-            (msg.x-self.rp.x)**2+\
-            (msg.y-self.rp.y)**2)**0.5
+            (self.current_pose.x-self.rp.x)**2+\
+            (self.current_pose.y-self.rp.y)**2)**0.5
         self.angular_distance=np.abs(
             angles.shortest_angular_distance(
-                msg.theta,self.rp.theta))
+                self.current_pose.theta,self.rp.theta))
         if (self.plain_distance < self.linear_th):
             self.generate_pose()
             self.goal_publisher.publish(self.rp)
+
+    def get_current_pose(self,msg):
+        #self.listener_callback(msg)
+        #compute plain and angular distance
+        self.current_pose_quaternion=msg
+        self.current_pose=Pose()
+	
+        #self.plain_distance=(
+        #    (self.current_pose_quaternion.pose.pose.position.x-self.goal_pose.x)**2+\
+        #    (self.current_pose_quaternion.pose.pose.position.y-self.goal_pose.y)**2)**0.5
+        self.euler_orientation=euler_from_quaternion([
+		self.current_pose_quaternion.pose.pose.orientation.x,
+		self.current_pose_quaternion.pose.pose.orientation.y,
+		self.current_pose_quaternion.pose.pose.orientation.z,
+		self.current_pose_quaternion.pose.pose.orientation.w,
+        ])
+        self.current_pose.x=self.current_pose_quaternion.pose.pose.position.x
+        self.current_pose.y=self.current_pose_quaternion.pose.pose.position.y
+        self.current_pose.theta=self.euler_orientation[2]
+
 
     def set_th(self):
         self.linear_th=float(self.get_parameter('K_x_th').get_parameter_value().double_value)

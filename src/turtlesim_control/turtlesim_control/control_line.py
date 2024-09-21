@@ -108,7 +108,7 @@ class Turtle_Controller(Node):
         if self.goal_pose!=None:
             pd=self.pose_distance(self.current_pose,self.goal_pose)
             v_u.twist.linear.x=0.002
-            v_u.twist.angular.z=self.K_z*pd.theta
+            v_u.twist.angular.z=self.K_z*max(abs(self.IF_cp.line[0]-self.IF_cp.line[2]),abs(self.IF_cp.line[4]-self.IF_cp.line[2]))
 
         
             self.velocity_publisher.publish(v_u)

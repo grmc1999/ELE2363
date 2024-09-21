@@ -112,7 +112,7 @@ class Turtle_Controller(Node):
         line=np.array(self.IF_cp.line)
         line=line-min(line)
         line=line-line[2]
-        line_d=(np.argmin(line)-2)**(1/3)
+        line_d=(np.argmin(line)-2)
         print(line_d)
         v_u.twist.angular.z=self.K_z*line_d
 

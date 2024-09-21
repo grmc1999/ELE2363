@@ -15,9 +15,11 @@ class Turtle_Goal_Sender(Node):
     def __init__(self):
         super().__init__('Turtle_Goal_Sender')
         self.x_max=2
+        self.declare_parameter('x_max',0.1)
         self.x_min=0
         self.y_min=0
         self.y_max=2
+        self.declare_parameter('y_max',0.1)
         self.linear_th=0.01
         self.declare_parameter('K_x_th',0.1)
         self.angular_th=0.001
@@ -76,6 +78,8 @@ class Turtle_Goal_Sender(Node):
     def set_th(self):
         self.linear_th=float(self.get_parameter('K_x_th').get_parameter_value().double_value)
         self.angular_distance=float(self.get_parameter('K_z_th').get_parameter_value().double_value)
+        self.x_max=float(self.get_parameter('x_max').get_parameter_value().double_value)
+        self.y_max=float(self.get_parameter('y_max').get_parameter_value().double_value)
         #self.K_z=float(self.get_parameter('K_z').get_parameter_value().double_value)
 
 def main(args=None):

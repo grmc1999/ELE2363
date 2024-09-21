@@ -24,7 +24,6 @@ class Turtle_Goal_Sender(Node):
         self.declare_parameter('K_z_th',0.1)
         self.generate_pose()
         self.goal_publisher = self.create_publisher(
-            0.5,
             Pose,
             'local/goal',10)
         self.pose_subscriber = self.create_subscription(

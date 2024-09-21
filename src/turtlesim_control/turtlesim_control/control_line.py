@@ -54,7 +54,7 @@ class Turtle_Controller(Node):
             State,
 	        #'turtle1/pose',
 	        'state',
-            self.get_current_pose,10)
+            self.get_IFL,10)
         
         self.velocity_publisher = self.create_publisher(
             TwistStamped,

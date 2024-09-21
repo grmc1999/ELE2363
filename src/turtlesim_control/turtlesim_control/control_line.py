@@ -110,8 +110,9 @@ class Turtle_Controller(Node):
         #pd=self.pose_distance(self.current_pose,self.goal_pose)
         v_u.twist.linear.x=self.v_x
         line=np.array(self.IF_cp.line)
+        line=line-min(line)
         line=line-line[2]
-        line_d=np.argmin(line)-2
+        line_d=(np.argmin(line)-2)**3
         print(line_d)
         v_u.twist.angular.z=self.K_z*line_d
 

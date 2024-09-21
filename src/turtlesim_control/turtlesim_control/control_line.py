@@ -77,7 +77,7 @@ class Turtle_Controller(Node):
         msg.line
         print(msg.line[0])
         print(msg.line[4])
-        self.goal_pose=msg
+        self.IF_cp=msg
     
     def get_current_pose(self,msg):
         #self.listener_callback(msg)

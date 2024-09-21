@@ -2,7 +2,7 @@
   ros__parameters:
     K_x: 0.2
     K_y: 0.01
-    K_z: 0.5
+    K_z: 0.1
 
 /sender_ns:
   ros__parameters:

@@ -10,6 +10,7 @@
   <depend>turtlesim</depend>
   <depend>angles</depend>
   <depend>rclpy</depend>
+  <depend>gpg_remote</depend>
   <depend>geometry_msgs</depend>
 
   <test_depend>ament_copyright</test_depend>

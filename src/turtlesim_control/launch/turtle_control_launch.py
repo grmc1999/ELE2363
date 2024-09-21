@@ -23,7 +23,7 @@ def generate_launch_description():
             executable='turtlesim_sender_node',
             #namespace='turtle',
             name='sender_ns',
-            #parameters=["/home/ros2_ws/src/turtlesim_control/config/sender_params.yaml"]
+            parameters=["/home/lci/ELE2363/src/turtlesim_control/config/params.yaml"]
         ),
         Node(
             package='turtlesim_control',

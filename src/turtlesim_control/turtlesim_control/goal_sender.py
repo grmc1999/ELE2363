@@ -12,10 +12,10 @@ class Turtle_Goal_Sender(Node):
 
     def __init__(self):
         super().__init__('Turtle_Goal_Sender')
-        self.x_max=11
+        self.x_max=2
         self.x_min=0
         self.y_min=0
-        self.y_max=11
+        self.y_max=2
         self.linear_th=0.01
         self.declare_parameter('K_x_th',0.1)
         self.angular_th=0.001

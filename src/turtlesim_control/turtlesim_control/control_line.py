@@ -24,6 +24,7 @@ class Turtle_Controller(Node):
         self.declare_parameter('K_y',0.1)
         #self.K_z=0.5
         self.declare_parameter('K_z',0.1)
+        self.declare_parameter('v_x',0.01)
 #        self.current_pose=Pose()
         self.current_pose=Pose()
         #self.current_pose.x=5.0
@@ -107,7 +108,7 @@ class Turtle_Controller(Node):
         v_u=TwistStamped()
         #if self.goal_pose!=None:
         #pd=self.pose_distance(self.current_pose,self.goal_pose)
-        v_u.twist.linear.x=0.002
+        v_u.twist.linear.x=self.v_x
         line=np.array(self.IF_cp.line)
         line=line-line[2]
         line_d=np.argmin(line)-2
@@ -129,6 +130,7 @@ class Turtle_Controller(Node):
         self.K_x=float(self.get_parameter('K_x').get_parameter_value().double_value)
         self.K_y=float(self.get_parameter('K_y').get_parameter_value().double_value)
         self.K_z=float(self.get_parameter('K_z').get_parameter_value().double_value)
+        self.v_x=float(self.get_parameter('v_x').get_parameter_value().double_value)
 
 def main(args=None):
     rclpy.init(args=args)

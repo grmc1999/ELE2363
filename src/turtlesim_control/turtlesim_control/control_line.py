@@ -5,6 +5,7 @@ from std_msgs.msg import String
 from geometry_msgs.msg import Twist,Pose2D,TwistStamped
 from turtlesim.msg import Pose
 from nav_msgs.msg import Odometry
+from gpg_remote.msg import State
 from tf_transformations import euler_from_quaternion
 import angles
 import numpy as np
@@ -49,6 +50,12 @@ class Turtle_Controller(Node):
 	        'diff_drive_controller/odom',
             self.get_current_pose,10)
         
+        self.ifs = self.create_subscription(
+            State,
+	        #'turtle1/pose',
+	        'state',
+            self.get_current_pose,10)
+        
         self.velocity_publisher = self.create_publisher(
             TwistStamped,
 		'diff_drive_controller/cmd_vel',
@@ -64,6 +71,12 @@ class Turtle_Controller(Node):
         # set mode for coupled orientation with distance
         #self.listener_callback(msg)
         #rospy.loginfo(rospy.get_caller_id() + 'I heard %f', msg)
+        self.goal_pose=msg
+
+    def get_IFL(self,msg):
+        msg.line
+        print(msg.line[0])
+        print(msg.line[4])
         self.goal_pose=msg
     
     def get_current_pose(self,msg):
@@ -94,7 +107,8 @@ class Turtle_Controller(Node):
         v_u=TwistStamped()
         if self.goal_pose!=None:
             pd=self.pose_distance(self.current_pose,self.goal_pose)
-            v_u.twist.linear.x,v_u.twist.angular.z=min(self.K_x*pd.x,0.1),self.K_z*pd.theta
+            v_u.twist.linear.x=0.02
+            v_u.twist.angular.z=self.K_z*pd.theta
 
         
             self.velocity_publisher.publish(v_u)

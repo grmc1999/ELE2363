@@ -68,6 +68,9 @@ class Turtle_Controller(Node):
         timer_period = 0.1  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
 
+        # Local
+        self.line_mem=[]
+
     def set_goal(self,msg):
         # set mode for coupled orientation with distance
         #self.listener_callback(msg)
@@ -103,6 +106,24 @@ class Turtle_Controller(Node):
     def listener_callback(self, msg):
         self.get_logger().info('I heard: "%s"' % msg.data)
 
+    def simple_angle_estimator(self,line):
+        line=line-min(line)
+        line=line-line[2]
+        line_d=-1*(np.argmin(line)-2)
+        return line_d
+    
+    def population_angle_estimator(self,line):
+        self.l=5
+        self.line_mem.append(line)
+        if len(self.line_mem)>self.l:
+            self.line_mem.pop(0)
+        
+        line=np.mean(np.array(self.line_mem),axis=0)
+
+        line=line-line[2]
+        line_d=-1*(np.argmin(line)-2)
+        return line_d
+
     def timer_callback(self):
         self.set_gains()
         v_u=TwistStamped()
@@ -110,10 +131,8 @@ class Turtle_Controller(Node):
         #pd=self.pose_distance(self.current_pose,self.goal_pose)
         v_u.twist.linear.x=self.v_x
         line=np.array(self.IF_cp.line)
-        line=line-min(line)
-        line=line-line[2]
-        line_d=(np.argmin(line)-2)
-        print(line_d)
+        #line_d=self.simple_angle_estimator(line)
+        line_d=self.population_angle_estimator(line)
         v_u.twist.angular.z=self.K_z*line_d
 
         

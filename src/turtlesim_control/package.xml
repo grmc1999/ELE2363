@@ -11,6 +11,7 @@
   <depend>angles</depend>
   <depend>rclpy</depend>
   <depend>gpg_remote</depend>
+  <depend>gpg_urdf</depend>
   <depend>geometry_msgs</depend>
 
   <test_depend>ament_copyright</test_depend>

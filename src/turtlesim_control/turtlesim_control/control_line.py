@@ -107,9 +107,7 @@ class Turtle_Controller(Node):
         self.get_logger().info('I heard: "%s"' % msg.data)
 
     def simple_angle_estimator(self,line):
-        line=line-min(line)
-        line=line-line[2]
-        line_d=-1*(np.argmin(line)-2)
+        line_d=np.argmax(line)-2
         self.get_logger().info('I heard: "%s"' % line_d)
         return line_d
     
@@ -132,8 +130,8 @@ class Turtle_Controller(Node):
         #pd=self.pose_distance(self.current_pose,self.goal_pose)
         v_u.twist.linear.x=self.v_x
         line=np.array(self.IF_cp.line)
-        #line_d=self.simple_angle_estimator(line)
-        line_d=self.population_angle_estimator(line)
+        line_d=self.simple_angle_estimator(line)
+        #line_d=self.population_angle_estimator(line)
         v_u.twist.angular.z=self.K_z*line_d
 
         

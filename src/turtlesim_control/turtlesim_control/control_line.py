@@ -110,10 +110,11 @@ class Turtle_Controller(Node):
         line=line-min(line)
         line=line-line[2]
         line_d=-1*(np.argmin(line)-2)
+        self.get_logger().info('I heard: "%s"' % line_d)
         return line_d
     
     def population_angle_estimator(self,line):
-        self.l=5
+        self.l=10
         self.line_mem.append(line)
         if len(self.line_mem)>self.l:
             self.line_mem.pop(0)

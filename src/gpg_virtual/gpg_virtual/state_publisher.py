@@ -85,6 +85,12 @@ class StatePublisher(Node):
                 #    base_link_to_right_wheel,
                 #    base_link_to_camera
                 #    ]
+                b_lw_T=buffer.lookup_transform('base_link','left_wheel',rospy.time())
+                print(b_lw_T)
+                self.get_logger().info(b_lw_T)
+                b_rw_T=buffer.lookup_transform('base_link','right_wheel',rospy.time())
+                print(b_rw_T)
+                self.get_logger().info(b_rw_T)
 
                 # update transform
                 # (moving in a circle with radius=2)
@@ -109,12 +115,7 @@ class StatePublisher(Node):
                 #angle += degree/4
 
                 # This will adjust as needed per iteration
-                b_lw_T=buffer.lookup_transform('base_link','left_wheel',rospy.time())
-                print(b_lw_T)
-                self.get_logger().info(b_lw_T)
-                b_rw_T=buffer.lookup_transform('base_link','right_wheel',rospy.time())
-                print(b_rw_T)
-                self.get_logger().info(b_rw_T)
+                
                 
                 loop_rate.sleep()
 

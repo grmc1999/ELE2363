@@ -3,6 +3,7 @@ from launch_ros.actions import Node
 from launch.actions import DeclareLaunchArgument, ExecuteProcess
 
 def generate_launch_description():
+    urdf="/home/ros2_ws/src/gpg.urdf.xml"
     return LaunchDescription([
 #        Node(
 #            package='turtlesim',
@@ -17,19 +18,21 @@ def generate_launch_description():
     #    ]],
     #    shell=True
     #),
-
+        #node for state
         Node(
-            package='turtlesim_control',
-            executable='turtlesim_sender_node',
+            package='robot_state_publisher',
+            executable='robot_state_publisher',
             #namespace='turtle',
             name='sender_ns',
-            parameters=["/home/lci/ELE2363/src/turtlesim_control/config/params.yaml"]
+            #parameters=["/home/lci/ELE2363/src/turtlesim_control/config/params.yaml"],
+            arguments=[urdf]
         ),
+        #node for control
         Node(
-            package='turtlesim_control',
-            executable='turtlesim_line_node',
+            package='gpg_virtual',
+            executable='state_publisher',
             #namespace='turtle',
-            name='control_ns',
-           parameters=["/home/lci/ELE2363/src/turtlesim_control/config/params.yaml"]
+            name='state_publisher',
+           #parameters=["/home/lci/ELE2363/src/turtlesim_control/config/params.yaml"]
         ),
     ])

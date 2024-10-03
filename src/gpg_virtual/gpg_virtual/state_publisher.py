@@ -80,11 +80,11 @@ class StatePublisher(Node):
                     "base_link_to_right_wheel",
                     "base_link_to_camera"
                     ]
-                joint_state.position = [
-                    base_link_to_left_wheel,
-                    base_link_to_right_wheel,
-                    base_link_to_camera
-                    ]
+                #joint_state.position = [
+                #    base_link_to_left_wheel,
+                #    base_link_to_right_wheel,
+                #    base_link_to_camera
+                #    ]
 
                 # update transform
                 # (moving in a circle with radius=2)

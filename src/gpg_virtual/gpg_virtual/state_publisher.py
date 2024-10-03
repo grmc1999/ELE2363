@@ -111,8 +111,10 @@ class StatePublisher(Node):
                 # This will adjust as needed per iteration
                 b_lw_T=buffer.lookup_transform('base_link','left_wheel',rospy.time())
                 print(b_lw_T)
+                self.get_logger().info(b_lw_T)
                 b_rw_T=buffer.lookup_transform('base_link','right_wheel',rospy.time())
-                print(b_lw_T)
+                print(b_rw_T)
+                self.get_logger().info(b_rw_T)
                 
                 loop_rate.sleep()
 

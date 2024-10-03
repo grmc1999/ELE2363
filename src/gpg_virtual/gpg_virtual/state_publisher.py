@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 
 from math import sin, cos, pi
+import rospy
 import threading
 import rclpy
 from rclpy.node import Node
@@ -8,7 +9,7 @@ from rclpy.qos import QoSProfile
 from geometry_msgs.msg import Quaternion,TwistStamped
 from sensor_msgs.msg import JointState
 from std_msgs.msg import Float32
-from tf2_ros import TransformBroadcaster, TransformStamped
+from tf2_ros import TransformBroadcaster, TransformStamped,Buffer
 #import untangle
 
 
@@ -23,6 +24,7 @@ class StatePublisher(Node):
         self.broadcaster = TransformBroadcaster(self, qos=qos_profile)
         self.nodeName = self.get_name()
         self.get_logger().info("{0} started".format(self.nodeName))
+        
 
         self.robot_vel_subscriber = self.create_subscription(
             TwistStamped,
@@ -61,6 +63,8 @@ class StatePublisher(Node):
         odom_trans.header.frame_id = 'odom'
         odom_trans.child_frame_id = 'base_link'
         joint_state = JointState()
+
+        buffer=Buffer()
 
         try:
             while rclpy.ok():
@@ -105,6 +109,11 @@ class StatePublisher(Node):
                 #angle += degree/4
 
                 # This will adjust as needed per iteration
+                b_lw_T=buffer.lookup_transform('base_link','left_wheel',rospy.time())
+                print(b_lw_T)
+                b_rw_T=buffer.lookup_transform('base_link','right_wheel',rospy.time())
+                print(b_lw_T)
+                
                 loop_rate.sleep()
 
         except KeyboardInterrupt:

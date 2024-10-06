@@ -27,6 +27,7 @@ import os
 def generate_launch_description():
     # Get URDF
     urdf = os.path.join(get_package_share_directory('gpg_remote'), 'gopigo3.urdf')
+    robot_urdf_model = os.path.join(get_package_share_directory('gpg_remote'), 'gpg.urdf.xml')
     with open(urdf, 'r') as infp:
       robot_description_content = infp.read()
     robot_description = {"robot_description": robot_description_content}
@@ -41,14 +42,15 @@ def generate_launch_description():
         [FindPackageShare("gpg_remote"), "gpg_remote.rviz"]
     )
     
-    robot_publisher = ExecuteProcess(cmd=['ros2', 'topic', 'pub', '-1', '--keep-alive', '86400', '--qos-durability', 'transient_local', '/robot_description', 'std_msgs/String', 'data: \'' + robot_description_content + '\''])
-#    robot_publisher = Node(
-#            package='robot_state_publisher',
-#            executable='robot_state_publisher',
-#            name='robot_state_publisher',
-#            output='both',
-#            parameters=[robot_description],
-#            )
+    #robot_publisher = ExecuteProcess(cmd=['ros2', 'topic', 'pub', '-1', '--keep-alive', '86400', '--qos-durability', 'transient_local', '/robot_description', 'std_msgs/String', 'data: \'' + robot_description_content + '\''])
+    robot_publisher = Node(
+            package='robot_state_publisher',
+            executable='robot_state_publisher',
+            name='robot_state_publisher',
+            output='both',
+            arguments=[robot_urdf_model]
+            #parameters=[robot_description],
+            )
 
     control_node = Node(
         package="controller_manager",

@@ -48,8 +48,8 @@ def generate_launch_description():
             executable='robot_state_publisher',
             name='robot_state_publisher',
             output='both',
-            arguments=[robot_urdf_model]
-            #parameters=[robot_description],
+            arguments=[robot_urdf_model],
+            parameters=[{'use_sim_time': use_sim_time, 'robot_description': robot_desc}],
             )
 
     control_node = Node(

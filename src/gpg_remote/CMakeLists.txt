@@ -40,6 +40,7 @@ install(FILES launch/gpg.launch.py
               config/camera.yaml
               config/controllers.yaml
               config/gopigo3.urdf
+              config/gpg.urdf.xml
         DESTINATION share/${PROJECT_NAME})
 
 ament_package()

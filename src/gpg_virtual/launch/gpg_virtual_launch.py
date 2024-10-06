@@ -28,11 +28,11 @@ def generate_launch_description():
             arguments=[urdf]
         ),
         #node for control
-        Node(
-            package='gpg_virtual',
-            executable='state_publisher',
-            #namespace='turtle',
-            name='state_publisher',
-           #parameters=["/home/lci/ELE2363/src/turtlesim_control/config/params.yaml"]
-        ),
+        #Node(
+        #    package='gpg_virtual',
+        #    executable='state_publisher',
+        #    #namespace='turtle',
+        #    name='state_publisher',
+        #   #parameters=["/home/lci/ELE2363/src/turtlesim_control/config/params.yaml"]
+        #),
     ])

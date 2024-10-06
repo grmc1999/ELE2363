@@ -26,6 +26,7 @@ import os
 def generate_launch_description():
     # Get URDF
     urdf = os.path.join(get_package_share_directory('gpg_remote'), 'gopigo3.urdf')
+    urdf_model = os.path.join(get_package_share_directory('gpg_remote'), 'gpg.urdf.xml')
     with open(urdf, 'r') as infp:
       robot_description_content = infp.read()
     robot_description = {"robot_description": robot_description_content}
@@ -39,6 +40,13 @@ def generate_launch_description():
     rviz_config_file = PathJoinSubstitution(
         [FindPackageShare("gpg_remote"), "gpg_remote.rviz"]
     )
+
+    robot_state_publisher_node = Node(
+            package='robot_state_publisher',
+            executable='robot_state_publisher',
+            name='sender_ns',
+            arguments=[urdf_model]
+        ),
 
     control_node = Node(
         package="controller_manager",
@@ -106,6 +114,7 @@ def generate_launch_description():
     )
 
     nodes = [
+       robot_state_publisher_node,
         control_node,
         image_publisher_node,
         joint_state_broadcaster_spawner,

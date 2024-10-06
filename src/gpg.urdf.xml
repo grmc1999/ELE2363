@@ -32,8 +32,8 @@
             <origin xyz="0 0.0 0.0" rpy="1.57075 0 0"/>
         </visual>
     </link>
-    <joint name="base_link_to_left_wheel" type="revolute">
-        <limit effort="1000.0" lower="0.0" upper="0.548" velocity="0.5"/>
+    <joint name="base_link_to_left_wheel" type="continuous">
+        
         <parent link="base_link"/>
         <child link="left_wheel"/>
         <origin rpy="0 0 0" xyz="0.0 0.10 -0.03"/>
@@ -48,7 +48,8 @@
         
     </joint>
 
-    <joint name="base_link_to_camera" type="continuous">
+    <joint name="base_link_to_camera" type="revolute">
+        <limit effort="1000.0" lower="0.0" upper="0.548" velocity="0.5"/>
         <parent link="base_link"/>
         <origin xyz="0.10 0  0.03"/>
         <child link="camera_link"/>

@@ -49,7 +49,7 @@
             <origin xyz="0.0 0.0 0.0"/>
         </visual>
     </link>
-    <link name="left_wheel">
+    <link name="left_wheel_link">
         <visual>
             <geometry>
                 <cylinder radius="0.065" length="0.025"/>
@@ -57,7 +57,7 @@
             <origin xyz="0 0.0 0.0" rpy="1.57075 0 0"/>
         </visual>
     </link>
-    <link name="right_wheel">
+    <link name="right_wheel_link">
         <visual>
             <geometry>
                 <cylinder radius="0.065" length="0.025"/>
@@ -66,23 +66,23 @@
             <origin xyz="0 0.0 0.0" rpy="1.57075 0 0"/>
         </visual>
     </link>
-    <joint name="base_link_to_left_wheel" type="continuous">
+    <joint name="left_wheel" type="continuous">
         
         <parent link="base_link"/>
-        <child link="left_wheel"/>
+        <child link="left_wheel_link"/>
         <origin rpy="0 0 0" xyz="0.0 0.10 -0.03"/>
         <axis xyz="0 1 0"/>
         
     </joint>
-    <joint name="base_link_to_right_wheel" type="continuous">
+    <joint name="right_wheel" type="continuous">
         <parent link="base_link"/>
-        <child link="right_wheel"/>
+        <child link="right_wheel_link"/>
         <origin xyz="0 -0.10 -0.03"/>
         <axis xyz="0 1 0"/>
         
     </joint>
 
-    <joint name="base_link_to_servo" type="revolute">
+    <joint name="servo" type="revolute">
         <limit effort="1000.0" lower="0.0" upper="0.548" velocity="0.5"/>
         <parent link="base_link"/>
         <origin xyz="0.10 0  0.03"/>

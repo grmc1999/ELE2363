@@ -17,6 +17,7 @@ from launch.actions import RegisterEventHandler
 from launch.actions import ExecuteProcess
 from launch.event_handlers import OnProcessExit
 from launch.substitutions import PathJoinSubstitution
+from launch.substitutions import LaunchConfiguration
 
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare

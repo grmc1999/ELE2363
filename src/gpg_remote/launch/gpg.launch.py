@@ -32,6 +32,11 @@ def generate_launch_description():
       robot_description_content = infp.read()
     robot_description = {"robot_description": robot_description_content}
 
+    use_sim_time = LaunchConfiguration('use_sim_time', default='false')
+
+    with open(robot_urdf_model, 'r') as infp:
+        robot_desc = infp.read()
+
     robot_controllers = PathJoinSubstitution(
         [
             FindPackageShare("gpg_remote"),

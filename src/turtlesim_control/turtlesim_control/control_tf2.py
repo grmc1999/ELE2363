@@ -80,8 +80,8 @@ class Turtle_Controller(Node):
             #v_u.twist.linear.x,v_u.twist.angular.z=min(self.K_x*pd.x,0.1),self.K_z*pd.theta
             #self.velocity_publisher.publish(v_u)
             print("original")
-            print(self.goal)
-            pd=self.buffer.Transform(self.goal,"base_link")
+            print(self.goal_pose)
+            pd=self.buffer.Transform(self.goal_pose,"base_link")
             print("transformed")
             print(pd)
 

@@ -63,7 +63,7 @@ class Turtle_Controller(Node):
 
         try:
             b_rw_T=self.buffer.lookup_transform('odom','base_link',rclpy.time.Time())
-            self.buffer.
+            #self.buffer.
             print(b_rw_T)
         except:
             print("error")

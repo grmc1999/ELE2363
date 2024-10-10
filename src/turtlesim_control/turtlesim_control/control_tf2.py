@@ -11,7 +11,7 @@ import numpy as np
 import math
 import tf2_ros
 
-import rospy
+#import rospy
 
 
 class Turtle_Controller(Node):

@@ -135,7 +135,7 @@ def generate_launch_description():
     )
 
 
-    LaunchDescription([
+    gz_launch=LaunchDescription([
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([
                 PathJoinSubstitution([
@@ -151,6 +151,7 @@ def generate_launch_description():
 
     nodes = [
         robot_publisher,
+        gz_launch,
         #control_node,
         #image_publisher_node,
         joint_state_broadcaster_spawner,

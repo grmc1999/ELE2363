@@ -81,7 +81,7 @@ class Turtle_Controller(Node):
             #self.velocity_publisher.publish(v_u)
             print("original")
             print(self.goal_pose)
-            pd=self.buffer.Transform(self.goal_pose,"base_link")
+            pd=self.buffer.transform(self.goal_pose,"base_link")
             print("transformed")
             print(pd)
 

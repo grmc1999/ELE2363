@@ -60,7 +60,7 @@ class Turtle_Controller(Node):
         self.current_pose_quaternion=msg
         self.current_pose=Pose()
 
-        b_rw_T=self.buffer.lookup_transform('base_link','right_wheel_link')
+        b_rw_T=self.buffer.lookup_transform('odom','base_link',0)
         print(b_rw_T)
 
 

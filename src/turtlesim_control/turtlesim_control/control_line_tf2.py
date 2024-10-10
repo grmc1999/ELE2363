@@ -28,13 +28,8 @@ class Turtle_Controller(Node):
         self.declare_parameter('v_x',0.01)
 #        self.current_pose=Pose()
         self.current_pose=Pose()
-        #self.current_pose.x=5.0
-        #self.current_pose.y=5.0
-        #self.current_pose.theta=0.0
+
         self.goal_pose=None
-        #self.goal_pose.x=5.0
-        #self.goal_pose.y=5.0
-        #self.goal_pose.theta=0.0
 
         self.goal_subscription = self.create_subscription(
             Pose,'local/goal',
@@ -90,9 +85,6 @@ class Turtle_Controller(Node):
         self.current_pose_quaternion=msg
         self.current_pose=Pose()
 	
-        #self.plain_distance=(
-        #    (self.current_pose_quaternion.pose.pose.position.x-self.goal_pose.x)**2+\
-        #    (self.current_pose_quaternion.pose.pose.position.y-self.goal_pose.y)**2)**0.5
         self.euler_orientation=euler_from_quaternion([
 		self.current_pose_quaternion.pose.pose.orientation.x,
 		self.current_pose_quaternion.pose.pose.orientation.y,

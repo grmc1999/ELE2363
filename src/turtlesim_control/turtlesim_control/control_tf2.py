@@ -2,7 +2,7 @@ import rclpy
 from rclpy.node import Node
 
 from std_msgs.msg import String
-from geometry_msgs.msg import Twist,Pose2D,TwistStamped
+from geometry_msgs.msg import Twist,Pose2D,TwistStamped,PointStamped
 from turtlesim.msg import Pose
 from nav_msgs.msg import Odometry
 from tf_transformations import euler_from_quaternion
@@ -31,7 +31,7 @@ class Turtle_Controller(Node):
 
 
         self.goal_subscription = self.create_subscription(
-            Pose,'local/goal',
+            PointStamped,'local/goal',
             self.set_goal,10)
         
         self.current_pose_subscription = self.create_subscription(
@@ -76,11 +76,14 @@ class Turtle_Controller(Node):
         self.set_gains()
         v_u=TwistStamped()
         if self.goal_pose!=None:
-            pd=self.pose_distance(self.current_pose,self.goal_pose)
-            v_u.twist.linear.x,v_u.twist.angular.z=min(self.K_x*pd.x,0.1),self.K_z*pd.theta
-
-        
-            self.velocity_publisher.publish(v_u)
+            #pd=self.pose_distance(self.current_pose,self.goal_pose)
+            #v_u.twist.linear.x,v_u.twist.angular.z=min(self.K_x*pd.x,0.1),self.K_z*pd.theta
+            #self.velocity_publisher.publish(v_u)
+            print("original")
+            print(self.goal)
+            pd=self.buffer.Transform(self.goal,"base_link")
+            print("transformed")
+            print(pd)
 
     def pose_distance(self,cp,gp):
         dp=Pose()

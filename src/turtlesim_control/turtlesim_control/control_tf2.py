@@ -11,7 +11,7 @@ import numpy as np
 import math
 import tf2_ros
 
-#import rospy
+import rospy
 
 
 class Turtle_Controller(Node):
@@ -60,8 +60,11 @@ class Turtle_Controller(Node):
         self.current_pose_quaternion=msg
         self.current_pose=Pose()
 
-        b_rw_T=self.buffer.lookup_transform('odom','base_link',0)
-        print(b_rw_T)
+        try:
+            b_rw_T=self.buffer.lookup_transform('odom','base_link',rospy.now())
+            print(b_rw_T)
+        except:
+            print("error")
 
 
     def listener_callback(self, msg):

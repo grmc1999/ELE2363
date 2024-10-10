@@ -45,6 +45,7 @@ class Turtle_Controller(Node):
 		10)
 
         self.buffer=tf2_ros.Buffer()
+        self.tf_listener=tf2_ros.TransformListener(self.buffer, self)
 
         
         timer_period = 0.1  # seconds
@@ -62,6 +63,7 @@ class Turtle_Controller(Node):
 
         try:
             b_rw_T=self.buffer.lookup_transform('odom','base_link',rclpy.time.Time())
+            self.buffer.
             print(b_rw_T)
         except:
             print("error")

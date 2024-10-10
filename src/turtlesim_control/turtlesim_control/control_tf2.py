@@ -86,7 +86,7 @@ class Turtle_Controller(Node):
             print("transformed")
             print(pd)
             distance=(pd.point.x**2+pd.point.x**2)**0.5
-            theta=math.atan2(pd.y,pd.x)
+            theta=math.atan2(pd.point.y,pd.point.x)
             v_u.twist.linear.x,v_u.twist.angular.z=min(self.K_x*distance,0.1),self.K_z*theta
             self.velocity_publisher.publish(v_u)
 

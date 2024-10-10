@@ -61,7 +61,7 @@ class Turtle_Controller(Node):
         self.current_pose=Pose()
 
         try:
-            b_rw_T=self.buffer.lookup_transform('odom','base_link',rospy.now())
+            b_rw_T=self.buffer.lookup_transform('odom','base_link',rclpy.time.Time())
             print(b_rw_T)
         except:
             print("error")

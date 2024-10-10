@@ -2,13 +2,11 @@
 <robot name="my_gpg">
 
   <ros2_control name="gpg_remote" type="system">
-    <!--
     <hardware>
       <plugin>gpg_remote/GPGRemoteHardware</plugin>
       <param name="host">192.168.0.204</param>
       <param name="port">8002</param>
     </hardware>
-    -->
     <joint name="left_wheel">
       <command_interface name="velocity"/>
       <state_interface name="position"/>

@@ -84,6 +84,11 @@ class Turtle_Controller(Node):
             pd=self.buffer.transform(self.goal_pose,"base_link")
             print("transformed")
             print(pd)
+            distance=(pd.point.x**2+pd.point.x**2)**0.5
+            theta=math.atan2(pd.y,pd.x)
+            v_u.twist.linear.x,v_u.twist.angular.z=min(self.K_x*distance,0.1),self.K_z*theta
+            self.velocity_publisher.publish(v_u)
+
 
     def pose_distance(self,cp,gp):
         dp=Pose()

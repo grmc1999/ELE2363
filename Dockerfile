@@ -6,6 +6,6 @@ RUN apt-get install ros-${ROS_DISTRO}-joint-state-publisher-gui -y
 RUN apt-get install ros-${ROS_DISTRO}-hardware-interface -y
 RUN apt-get install ros-${ROS_DISTRO}-controller-interface -y
 RUN apt-get install ros-${ROS_DISTRO}-controller-manager -y
-
+RUN apt-get update -y
 RUN apt-get install ros-${ROS_DISTRO}-ros-gz -y
 

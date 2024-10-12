@@ -11,6 +11,7 @@ setup(
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
         ('share/' + package_name, ['launch/gpg_virtual_launch.py']),
+        ('share/' + package_name, ['config/gpg.urdf.xml']),
     ],
     install_requires=['setuptools'],
     zip_safe=True,

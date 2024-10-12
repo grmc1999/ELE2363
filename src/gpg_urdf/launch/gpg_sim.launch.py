@@ -150,9 +150,30 @@ def generate_launch_description():
         )
     ])
 
+    robot_state_publisher_launch=LaunchDescription([
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([
+                PathJoinSubstitution([
+                    FindPackageShare('gpg_virtual'),
+                    'launch',
+                    'gpg_virtual_launch.py'
+                ])
+            ])
+        )
+    ])
+
+    #rviz_node = Node(
+    #    package="rviz2",
+    #    executable="rviz2",
+    #    name="rviz2",
+    #    output="log",
+    #    arguments=["-d", rviz_config_file],
+    #)
+
     nodes = [
         robot_publisher,
         gz_launch,
+        #robot_state_publisher_launch,
         #control_node,
         #image_publisher_node,
         joint_state_broadcaster_spawner,

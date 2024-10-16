@@ -1,11 +1,36 @@
 <?xml version="1.0"?>
 <robot name="my_gpg">
 
+    <gazebo reference="base_link">
+        <material>Gazebo/Orange</material>
+        <mu1>0</mu1>
+        <mu2>0</mu2>
+    </gazebo>
+
+    <gazebo reference="camera_link">
+        <material>Gazebo/Orange</material>
+        <mu1>0</mu1>
+        <mu2>0</mu2>
+    </gazebo>
+
+    <gazebo reference="right_wheel">
+        <material>Gazebo/Orange</material>
+        <mu1>0</mu1>
+        <mu2>0</mu2>
+    </gazebo>
+
+    <gazebo reference="left_wheel">
+        <material>Gazebo/Orange</material>
+        <mu1>0</mu1>
+        <mu2>0</mu2>
+    </gazebo>
+
   <ros2_control name="gpg_remote" type="system">
     <hardware>
       <plugin>gpg_remote/GPGRemoteHardware</plugin>
       <param name="host">192.168.0.204</param>
       <param name="port">8002</param>
+
     </hardware>
     <joint name="left_wheel">
       <command_interface name="velocity"/>
@@ -39,7 +64,22 @@
                 <box size="0.15 0.15 0.075"/>
             </geometry>
         </visual>
+        <collision>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <geometry>
+            <box size="0.15 0.15 0.075"/>
+          </geometry>
+        </collision>
+        <inertial>
+            <origin xyz="0 0 1" rpy="0 0 0"/>
+            <mass value="1"/>
+                <inertia
+                    ixx="1.0" ixy="0.0" ixz="0.0"
+                    iyy="1.0" iyz="0.0"
+                    izz="1.0"/>
+        </inertial>
     </link>
+
     <link name="servo_link">
         <visual>
             <geometry>
@@ -47,7 +87,22 @@
             </geometry>
             <origin xyz="0.0 0.0 0.0"/>
         </visual>
+        <collision>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <geometry>
+            <box size="0.05 0.05 0.05"/>
+          </geometry>
+        </collision>
+        <inertial>
+            <origin xyz="0 0 1" rpy="0 0 0"/>
+            <mass value="0.1"/>
+                <inertia
+                    ixx="1.0" ixy="0.0" ixz="0.0"
+                    iyy="1.0" iyz="0.0"
+                    izz="1.0"/>
+        </inertial>
     </link>
+
     <link name="left_wheel_link">
         <visual>
             <geometry>
@@ -55,15 +110,42 @@
             </geometry>
             <origin xyz="0 0.0 0.0" rpy="1.57075 0 0"/>
         </visual>
+        <collision>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <geometry>
+            <cylinder radius="0.065" length="0.025"/>
+          </geometry>
+        </collision>
+        <inertial>
+            <origin xyz="0 0 1" rpy="0 0 0"/>
+            <mass value="0.5"/>
+                <inertia
+                    ixx="1.0" ixy="0.0" ixz="0.0"
+                    iyy="1.0" iyz="0.0"
+                    izz="1.0"/>
+        </inertial>
     </link>
     <link name="right_wheel_link">
         <visual>
             <geometry>
                 <cylinder radius="0.065" length="0.025"/>
-                
             </geometry>
             <origin xyz="0 0.0 0.0" rpy="1.57075 0 0"/>
         </visual>
+        <collision>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <geometry>
+            <cylinder radius="0.065" length="0.025"/>
+          </geometry>
+        </collision>
+        <inertial>
+            <origin xyz="0 0 1" rpy="0 0 0"/>
+            <mass value="0.5"/>
+                <inertia
+                    ixx="1.0" ixy="0.0" ixz="0.0"
+                    iyy="1.0" iyz="0.0"
+                    izz="1.0"/>
+        </inertial>
     </link>
     <joint name="left_wheel" type="continuous">
         

@@ -31,23 +31,20 @@ from launch.substitutions import PathJoinSubstitution, TextSubstitution
 
 from ament_index_python.packages import get_package_share_directory
 import os
+import xacro
 
 def generate_launch_description():
     # Get URDF
-    urdf = os.path.join(get_package_share_directory('gpg_remote'), 'gopigo3.urdf')
-    robot_urdf_model = os.path.join(get_package_share_directory('gpg_remote'), 'gpg.urdf.xml')
-    with open(urdf, 'r') as infp:
-      robot_description_content = infp.read()
-    robot_description = {"robot_description": robot_description_content}
+    robot_desc = xacro.process_file(os.path.join(get_package_share_directory('gpg_urdf'), 'gpg.urdf.xml')).toxml()
 
-    use_sim_time = LaunchConfiguration('use_sim_time', default='false')
+    use_sim_time = LaunchConfiguration('use_sim_time', default='true')
 
-    with open(robot_urdf_model, 'r') as infp:
-        robot_desc = infp.read()
+    #with open(robot_urdf_model, 'r') as infp:
+    #    robot_desc = infp.read()
 
     robot_controllers = PathJoinSubstitution(
         [
-            FindPackageShare("gpg_remote"),
+            FindPackageShare("gpg_urdf"),
             "controllers.yaml",
         ]
     )
@@ -61,7 +58,7 @@ def generate_launch_description():
             executable='robot_state_publisher',
             name='robot_state_publisher',
             output='both',
-            arguments=[robot_urdf_model],
+            #arguments=[robot_urdf_model],
             parameters=[{'use_sim_time': use_sim_time, 'robot_description': robot_desc}],
             )
 
@@ -129,7 +126,7 @@ def generate_launch_description():
             on_exit=[
                 robot_controller_spawner,
                 servo_controller_spawner,
-                gpg_remote_broadcaster_spawner
+                #gpg_remote_broadcaster_spawner
                 ],
         )
     )
@@ -162,6 +159,24 @@ def generate_launch_description():
         )
     ])
 
+    robot_spawner = Node(
+        package="ros_gz_sim",
+        executable="create",
+        arguments=["-topic", "/robot_description","-z","1"],
+    )
+
+    time_bridge = Node(
+        package="ros_gz_bridge",
+        executable="parameter_bridge",
+        arguments=["/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock"],
+    )
+
+    image_bridge = Node(
+        package="ros_gz_image",
+        executable="image_bridge",
+        arguments=["/camera_info"],)
+    
+
     #rviz_node = Node(
     #    package="rviz2",
     #    executable="rviz2",
@@ -171,10 +186,15 @@ def generate_launch_description():
     #)
 
     nodes = [
-        robot_publisher,
+#        robot_publisher,
         gz_launch,
+        time_bridge,
+        image_bridge,
+        robot_spawner,
         #robot_state_publisher_launch,
-        #control_node,
+        robot_publisher,
+        rviz_node,
+        control_node,
         #image_publisher_node,
         joint_state_broadcaster_spawner,
         delay_rviz_after_joint_state_broadcaster_spawner,

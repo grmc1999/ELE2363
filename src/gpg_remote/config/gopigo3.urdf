@@ -1,5 +1,12 @@
 <?xml version="1.0"?>
 <robot name="gopigo3">
+
+    <gazebo reference="base_link">
+        <material>Gazebo/Orange</material>
+        <mu1>0</mu1>
+        <mu2>0</mu2>
+    </gazebo>
+    
   <ros2_control name="gpg_remote" type="system">
     <hardware>
       <plugin>gpg_remote/GPGRemoteHardware</plugin>

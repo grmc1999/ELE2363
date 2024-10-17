@@ -215,7 +215,7 @@ def generate_launch_description():
         
         #rviz_node,
         #control_node,
-        #delay_control_after__spawner,
+        delay_control_after__spawner,
         #robot_publisher,
         #image_publisher_node,
         #joint_state_broadcaster_spawner,

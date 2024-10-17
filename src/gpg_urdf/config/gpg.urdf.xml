@@ -78,7 +78,10 @@
   </gazebo>
 
 
-  <pose>0 0 0 0 0 0 </pose>
+
+
+    <!-- camera
+      <pose>0 0 0 0 0 0 </pose>
   <gz_frame_id>camera_link</gz_frame_id>
   <camera name="camera_name">
     <camera_info_topic>/camera_info</camera_info_topic>
@@ -88,7 +91,31 @@
       <height >240</height>
       <format >R8G8B8</format>
     </image>
-  </camera>
+  </camera> -->
+  <gazebo reference="camera_link">
+    <sensor type="camera" name="camera_name">
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>0.915</horizontal_fov>
+        <image>
+          <width >320</width>
+      <height >240</height>
+          <format>R8G8B8</format>
+        </image>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>gpg/camera_name</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>camera_link</frameName>
+        <distortionK1>0.080938</distortionK1>
+        <distortionK2>-0.257429</distortionK2>
+        <distortionK3>0.0</distortionK3>
+      </plugin>
+    </sensor>
+  </gazebo>
 
 
   <link name="base_link">

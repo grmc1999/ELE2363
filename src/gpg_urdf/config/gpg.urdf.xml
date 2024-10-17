@@ -98,12 +98,15 @@
       <camera name="head">
         <horizontal_fov>0.915</horizontal_fov>
         <image>
-          <width >320</width>
-      <height >240</height>
+          <width>320</width>
+          <height>240</height>
           <format>R8G8B8</format>
+          <distortionK1>0.080938</distortionK1>
+          <distortionK2>-0.257429</distortionK2>
+          <distortionK3>0.0</distortionK3>
         </image>
       </camera>
-      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+      <!--<plugin name="camera_controller" filename="libgazebo_ros_camera.so">
         <alwaysOn>true</alwaysOn>
         <updateRate>0.0</updateRate>
         <cameraName>gpg/camera_name</cameraName>
@@ -113,7 +116,7 @@
         <distortionK1>0.080938</distortionK1>
         <distortionK2>-0.257429</distortionK2>
         <distortionK3>0.0</distortionK3>
-      </plugin>
+      </plugin>-->
     </sensor>
   </gazebo>
 

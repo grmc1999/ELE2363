@@ -175,7 +175,7 @@ def generate_launch_description():
     robot_spawner = Node(
         package="ros_gz_sim",
         executable="create",
-        arguments=["-topic", "/robot_description","-z","1"],
+        arguments=["-topic", "robot_description","-z","1"],
     )
 
     time_bridge = Node(

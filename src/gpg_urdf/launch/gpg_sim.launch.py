@@ -182,6 +182,7 @@ def generate_launch_description():
         package="ros_gz_bridge",
         executable="parameter_bridge",
         arguments=["/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock"],
+        output="both"
     )
 
     image_bridge = Node(
@@ -208,18 +209,18 @@ def generate_launch_description():
         time_bridge,
         #image_bridge,
         robot_publisher,
-        gz_launch,
-        delay_spawn_after_robot_publisher,
+        #gz_launch,
+        #delay_spawn_after_robot_publisher,
         #robot_spawner,
         
-        rviz_node,
+        #rviz_node,
         #control_node,
-        delay_control_after__spawner,
+        #delay_control_after__spawner,
         #robot_publisher,
         #image_publisher_node,
-        joint_state_broadcaster_spawner,
+        #joint_state_broadcaster_spawner,
         #delay_rviz_after_joint_state_broadcaster_spawner,
-        delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,
+        #delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,
     ]
 
     return LaunchDescription(nodes)

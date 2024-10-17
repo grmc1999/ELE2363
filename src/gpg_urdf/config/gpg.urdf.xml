@@ -84,6 +84,7 @@
       <gz_frame_id >camera_link</gz_frame_id>
       <visualize>true</visualize>
       <update_rate>30.0</update_rate>
+      <topic>/image</topic>
       <camera name="head">
         <camera_info_topic>/camera_info</camera_info_topic>
         <horizontal_fov>0.915</horizontal_fov>

@@ -36,6 +36,7 @@ import xacro
 def generate_launch_description():
     # Get URDF
     #robot_desc = xacro.process_file(os.path.join(get_package_share_directory('gpg_urdf'), 'gpg.urdf.xml')).toxml()
+    robot_urdf_model = os.path.join(get_package_share_directory('gpg_remote'), 'gpg.urdf.xml')
 
     robot_desc = Command(
         [
@@ -69,7 +70,7 @@ def generate_launch_description():
             executable='robot_state_publisher',
             name='robot_state_publisher',
             output='both',
-            #arguments=[robot_urdf_model],
+            arguments=[robot_urdf_model],
             #parameters=[{'use_sim_time': use_sim_time, 'robot_description': robot_desc}],
             parameters=[{ 'robot_description': robot_desc}],
             )

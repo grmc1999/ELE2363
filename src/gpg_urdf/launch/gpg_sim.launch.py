@@ -209,7 +209,7 @@ def generate_launch_description():
         #robot_publisher,
         #image_publisher_node,
         joint_state_broadcaster_spawner,
-        #delay_rviz_after_joint_state_broadcaster_spawner,
+        delay_rviz_after_joint_state_broadcaster_spawner,
         delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,
     ]
 

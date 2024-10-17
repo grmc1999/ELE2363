@@ -71,8 +71,8 @@ def generate_launch_description():
             name='robot_state_publisher',
             output='both',
             #arguments=[robot_urdf_model],
-            #parameters=[{'use_sim_time': use_sim_time, 'robot_description': robot_desc}],
-            parameters=[{ 'robot_description': robot_desc}],
+            parameters=[{'use_sim_time': use_sim_time, 'robot_description': robot_desc}],
+            #parameters=[{ 'robot_description': robot_desc}],
             )
 
     control_node = Node(
@@ -197,7 +197,7 @@ def generate_launch_description():
 
     nodes = [
         time_bridge,
-        #image_bridge,
+        image_bridge,
         robot_publisher,
         gz_launch,
         delay_spawn_after_robot_publisher,

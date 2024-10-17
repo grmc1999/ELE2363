@@ -15,7 +15,7 @@
 from launch import LaunchDescription
 from launch.actions import RegisterEventHandler
 from launch.actions import ExecuteProcess
-from launch.event_handlers import OnProcessExit
+from launch.event_handlers import OnProcessExit,OnProcessStart
 from launch.substitutions import PathJoinSubstitution
 from launch.substitutions import LaunchConfiguration
 
@@ -197,9 +197,9 @@ def generate_launch_description():
         )
     )
     delay_spawn_after_robot_publisher = RegisterEventHandler(
-        event_handler=OnProcessExit(
+        event_handler=OnProcessStart(
             target_action=robot_publisher,
-            on_exit=[robot_spawner],
+            on_start=[robot_spawner],
         )
     )
 

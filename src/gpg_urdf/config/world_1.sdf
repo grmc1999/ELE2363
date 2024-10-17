@@ -6,7 +6,7 @@
       <real_time_update_rate>1000</real_time_update_rate>
     </physics>
     <plugin name='gz::sim::systems::Physics' filename='gz-sim-physics-system'/>
-    <plugin name='gz::sim::systems::Sensors' filename='gz−sim−sensors−system'>
+    <plugin name='gz::sim::systems::Sensors' filename='gz-sim-sensors-system'>
       <render_engine>ogre</render_engine>
     </plugin>
     <plugin name='gz::sim::systems::UserCommands' filename='gz-sim-user-commands-system'/>

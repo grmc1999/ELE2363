@@ -80,7 +80,7 @@
 
   <gazebo reference="camera_link">
     <sensor type="camera" name="camera_name">
-      <pose> 0 0 0 1.57 −1.57 0 </pose>
+      <pose> 0 0 0 1.57 -1.57 0 </pose>
       <gz_frame_id >camera_link</gz_frame_id>
       <visualize>true</visualize>
       <update_rate>30.0</update_rate>

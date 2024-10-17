@@ -3,7 +3,7 @@ from launch_ros.actions import Node
 from launch.actions import DeclareLaunchArgument, ExecuteProcess
 
 def generate_launch_description():
-    urdf="/home/ros2_ws/src/gpg.urdf.xml"
+    urdf="/home/lci/Documents/ros2_ws/ELE2363/src/gpg.urdf.xml"
     return LaunchDescription([
 #        Node(
 #            package='turtlesim',

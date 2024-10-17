@@ -15,15 +15,15 @@ class Turtle_Goal_Sender(Node):
     def __init__(self):
         super().__init__('Turtle_Goal_Sender')
         self.x_max=2
-        self.declare_parameter('x_max',0.1)
+        self.declare_parameter('x_max',2)
         self.x_min=0
         self.y_min=0
         self.y_max=2
-        self.declare_parameter('y_max',0.1)
+        self.declare_parameter('y_max',2)
         self.linear_th=0.01
         self.declare_parameter('K_x_th',0.1)
         self.angular_th=0.001
-        self.declare_parameter('K_z_th',0.1)
+        self.declare_parameter('K_z_th',0.3)
         self.generate_pose()
         self.goal_publisher = self.create_publisher(
             Pose,
@@ -38,8 +38,8 @@ class Turtle_Goal_Sender(Node):
 
     def generate_pose(self):
         self.rp=Pose()
-        self.rp.x=np.random.uniform(self.x_min,self.x_max)
-        self.rp.y=np.random.uniform(self.y_min,self.y_max)
+        self.rp.x=np.random.uniform(0,2)
+        self.rp.y=np.random.uniform(0,2)
         self.rp.theta=np.random.uniform(-np.pi,np.pi)
     
     def listener_callback(self, msg):

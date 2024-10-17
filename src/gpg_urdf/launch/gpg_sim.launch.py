@@ -178,7 +178,7 @@ def generate_launch_description():
     image_bridge = Node(
         package="ros_gz_image",
         executable="image_bridge",
-        arguments=["/camera_info"],)
+        arguments=["camera_info"],)
     
     delay_control_after__spawner = RegisterEventHandler(
         event_handler=OnProcessExit(

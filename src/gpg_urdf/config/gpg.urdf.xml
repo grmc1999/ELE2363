@@ -277,7 +277,7 @@
 
   <joint name="camera" type="fixed">
     <parent link="servo_link"/>
-    <origin xyz="0.03 0  0" rpy="0 1.57075 0"/>
+    <origin xyz="0.03 0  0" rpy="1.57075 1.57075 0"/>
     <child link="camera_link"/>
     <axis xyz="0 0 1"/>
   </joint>

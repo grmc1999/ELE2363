@@ -139,7 +139,7 @@ def generate_launch_description():
             on_exit=[
                 robot_controller_spawner,
                 servo_controller_spawner,
-                gpg_remote_broadcaster_spawner
+                #gpg_remote_broadcaster_spawner
                 ],
         )
     )
@@ -220,7 +220,7 @@ def generate_launch_description():
         #image_publisher_node,
         joint_state_broadcaster_spawner,
         #delay_rviz_after_joint_state_broadcaster_spawner,
-        #delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,
+        delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,
     ]
 
     return LaunchDescription(nodes)

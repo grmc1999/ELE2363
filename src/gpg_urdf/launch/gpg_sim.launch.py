@@ -205,12 +205,13 @@ def generate_launch_description():
 
 
     nodes = [
+        time_bridge,
+        #image_bridge,
         robot_publisher,
         gz_launch,
         delay_spawn_after_robot_publisher,
         #robot_spawner,
-        time_bridge,
-        image_bridge,
+        
         rviz_node,
         #control_node,
         delay_control_after__spawner,

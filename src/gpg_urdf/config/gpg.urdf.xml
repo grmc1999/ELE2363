@@ -1,6 +1,12 @@
 <?xml version="1.0"?>
 <robot name="my_gpg">
 
+  <gazebo>
+    <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+      <parameters>$(find gpg_urdf)/controllers.yaml</parameters>
+    </plugin>
+  </gazebo>
+
   <ros2_control name="GazeboSimSystem" type="system">
     <hardware>
       <plugin>gz_ros2_control/GazeboSimSystem</plugin>
@@ -21,7 +27,7 @@
       <state_interface name="position"/>
     </joint>
     
-    <sensor name="line">
+    <!--<sensor name="line">
        <state_interface name="level0"/>
        <state_interface name="level1"/>
        <state_interface name="level2"/>
@@ -30,14 +36,9 @@
     </sensor>
     <sensor name="battery">
        <state_interface name="voltage"/>
-    </sensor>
+    </sensor>-->
     
   </ros2_control>
-
-
-  <plugin filename ="gz_ros2_control−system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
-    <parameters>$(find gpg_urdf)/controller.yaml</parameters>
-  </plugin>
 
   <gazebo reference="base_link">
     <material>Gazebo/Orange</material>
@@ -260,4 +261,7 @@
     <child link="back_wheel_link"/>
     <axis xyz="0 0 1"/>
   </joint>
+
+
+
 </robot>

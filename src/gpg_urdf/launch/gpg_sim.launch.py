@@ -26,7 +26,7 @@ from launch_ros.substitutions import FindPackageShare
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import PathJoinSubstitution, TextSubstitution
+from launch.substitutions import PathJoinSubstitution, TextSubstitution,Command,FindExecutable
 
 
 from ament_index_python.packages import get_package_share_directory
@@ -35,7 +35,18 @@ import xacro
 
 def generate_launch_description():
     # Get URDF
-    robot_desc = xacro.process_file(os.path.join(get_package_share_directory('gpg_urdf'), 'gpg.urdf.xml')).toxml()
+    #robot_desc = xacro.process_file(os.path.join(get_package_share_directory('gpg_urdf'), 'gpg.urdf.xml')).toxml()
+
+    robot_desc = Command(
+        [
+            PathJoinSubstitution([FindExecutable(name='xacro')]),
+            ' ',
+            PathJoinSubstitution(
+                [FindPackageShare('gpg_urdf'),
+                 'gpg.urdf.xml']
+            ),
+        ]
+    )#/home/ros2_ws/install/gpg_urdf/share/gpg_urdf/controllers.yaml
 
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
 
@@ -59,7 +70,8 @@ def generate_launch_description():
             name='robot_state_publisher',
             output='both',
             #arguments=[robot_urdf_model],
-            parameters=[{'use_sim_time': use_sim_time, 'robot_description': robot_desc}],
+            #parameters=[{'use_sim_time': use_sim_time, 'robot_description': robot_desc}],
+            parameters=[{ 'robot_description': robot_desc}],
             )
 
     control_node = Node(
@@ -69,16 +81,16 @@ def generate_launch_description():
         output="both",
     )
     
-    camera_config = os.path.join(
-      get_package_share_directory('gpg_remote'),
-      'camera.yaml'
-      )
-    image_publisher_node = Node(
-        package="gpg_remote",
-        executable="image_publisher",
-        parameters=[camera_config],
-        output="both",
-    )
+    #camera_config = os.path.join(
+    #  get_package_share_directory('gpg_remote'),
+    #  'camera.yaml'
+    #  )
+    #image_publisher_node = Node(
+    #    package="gpg_remote",
+    #    executable="image_publisher",
+    #    parameters=[camera_config],
+    #    output="both",
+    #)
     rviz_node = Node(
         package="rviz2",
         executable="rviz2",
@@ -126,7 +138,7 @@ def generate_launch_description():
             on_exit=[
                 robot_controller_spawner,
                 servo_controller_spawner,
-                #gpg_remote_broadcaster_spawner
+                gpg_remote_broadcaster_spawner
                 ],
         )
     )
@@ -142,23 +154,23 @@ def generate_launch_description():
                 ])
             ]),
             launch_arguments={
-               'gz_args':[FindPackageShare("gpg_urdf"), "/world_1.sdf"],
+               'gz_args':['-r ',FindPackageShare("gpg_urdf"), "/world_1.sdf"],
                 }.items()
         )
     ])
 
-    robot_state_publisher_launch=LaunchDescription([
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource([
-                PathJoinSubstitution([
-                    FindPackageShare('gpg_virtual'),
-                    'launch',
-                    'gpg_virtual_launch.py'
-                ])
-            ])
-        )
-    ])
-
+    #robot_state_publisher_launch=LaunchDescription([
+    #    IncludeLaunchDescription(
+    #        PythonLaunchDescriptionSource([
+    #            PathJoinSubstitution([
+    #                FindPackageShare('gpg_virtual'),
+    #                'launch',
+    #                'gpg_virtual_launch.py'
+    #            ])
+    #        ])
+    #    )
+    #])
+#
     robot_spawner = Node(
         package="ros_gz_sim",
         executable="create",
@@ -176,28 +188,34 @@ def generate_launch_description():
         executable="image_bridge",
         arguments=["/camera_info"],)
     
+    delay_control_after__spawner = RegisterEventHandler(
+        event_handler=OnProcessExit(
+            target_action=robot_spawner,
+            on_exit=[control_node],
+        )
+    )
+    delay_spawn_after_robot_publisher = RegisterEventHandler(
+        event_handler=OnProcessExit(
+            target_action=robot_publisher,
+            on_exit=[robot_spawner],
+        )
+    )
 
-    #rviz_node = Node(
-    #    package="rviz2",
-    #    executable="rviz2",
-    #    name="rviz2",
-    #    output="log",
-    #    arguments=["-d", rviz_config_file],
-    #)
+
 
     nodes = [
-#        robot_publisher,
+        robot_publisher,
         gz_launch,
+        delay_spawn_after_robot_publisher,
+        #robot_spawner,
         time_bridge,
         image_bridge,
-        robot_spawner,
-        #robot_state_publisher_launch,
-        robot_publisher,
         rviz_node,
-        control_node,
+        #control_node,
+        delay_control_after__spawner,
         #image_publisher_node,
         joint_state_broadcaster_spawner,
-        delay_rviz_after_joint_state_broadcaster_spawner,
+        #delay_rviz_after_joint_state_broadcaster_spawner,
         delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,
     ]
 

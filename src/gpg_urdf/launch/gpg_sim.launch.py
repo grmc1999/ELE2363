@@ -210,7 +210,7 @@ def generate_launch_description():
         #image_bridge,
         robot_publisher,
         gz_launch,
-        #delay_spawn_after_robot_publisher,
+        delay_spawn_after_robot_publisher,
         #robot_spawner,
         
         #rviz_node,

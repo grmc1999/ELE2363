@@ -81,17 +81,7 @@ def generate_launch_description():
         parameters=[robot_controllers],
         output="both",
     )
-    
-    #camera_config = os.path.join(
-    #  get_package_share_directory('gpg_remote'),
-    #  'camera.yaml'
-    #  )
-    #image_publisher_node = Node(
-    #    package="gpg_remote",
-    #    executable="image_publisher",
-    #    parameters=[camera_config],
-    #    output="both",
-    #)
+
     rviz_node = Node(
         package="rviz2",
         executable="rviz2",

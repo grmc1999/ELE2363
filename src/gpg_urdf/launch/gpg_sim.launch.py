@@ -206,8 +206,8 @@ def generate_launch_description():
     nodes = [
         robot_publisher,
         gz_launch,
-        delay_spawn_after_robot_publisher,
-        #robot_spawner,
+        #delay_spawn_after_robot_publisher,
+        robot_spawner,
         time_bridge,
         image_bridge,
         rviz_node,

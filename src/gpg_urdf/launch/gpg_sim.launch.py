@@ -211,11 +211,11 @@ def generate_launch_description():
         robot_publisher,
         gz_launch,
         #delay_spawn_after_robot_publisher,
-        robot_spawner,
+        #robot_spawner,
         
         #rviz_node,
         #control_node,
-        delay_control_after__spawner,
+        #delay_control_after__spawner,
         #robot_publisher,
         #image_publisher_node,
         #joint_state_broadcaster_spawner,

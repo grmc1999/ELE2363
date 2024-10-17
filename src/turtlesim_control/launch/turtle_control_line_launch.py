@@ -29,6 +29,6 @@ def generate_launch_description():
             executable='turtlesim_line_node',
             #namespace='turtle',
             name='control_ns',
-           parameters=[params]
+            parameters=[params]
         ),
     ])

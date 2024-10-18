@@ -61,7 +61,7 @@ def generate_launch_description():
         ]
     )
     rviz_config_file = PathJoinSubstitution(
-        [FindPackageShare("gpg_remote"), "gpg_remote.rviz"]
+        [FindPackageShare("gpg_urdf"), "gpg_urdf.rviz"]
     )
     
     #robot_publisher = ExecuteProcess(cmd=['ros2', 'topic', 'pub', '-1', '--keep-alive', '86400', '--qos-durability', 'transient_local', '/robot_description', 'std_msgs/String', 'data: \'' + robot_description_content + '\''])

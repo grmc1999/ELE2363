@@ -10,6 +10,11 @@ RUN apt-get update -y
 RUN apt-get install ros-${ROS_DISTRO}-ros-gz -y
 
 
+# gz control
+# ros2 control
+# controlller
+#apt-get install ros-jazzy-turtlesim
+
 #RUN mkdir -p ~/gz_ros2_control_ws/src && cd ~/gz_ros2_control_ws/src && git clone https://github.com/ros-controls/gz_ros2_control -b {ROS_DISTRO} && rosdep install -r --from-paths . --ignore-src --rosdistro $ROS_DISTRO -y && cd ~/gz_ros2_control_ws && colcon build
 #RUN source ~/ros2_ws/gz_ros2_control/install/setup.bash
 

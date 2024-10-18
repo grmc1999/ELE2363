@@ -33,17 +33,6 @@
       <state_interface name="position"/>
     </joint>
     
-    <!--<sensor name="line">
-       <state_interface name="level0"/>
-       <state_interface name="level1"/>
-       <state_interface name="level2"/>
-       <state_interface name="level3"/>
-       <state_interface name="level4"/>
-    </sensor>
-    <sensor name="battery">
-       <state_interface name="voltage"/>
-    </sensor>-->
-    
   </ros2_control>
 
   <gazebo reference="base_link">
@@ -126,7 +115,7 @@
     </collision>
     <inertial>
         <origin xyz="0 0 0" rpy="0 0 0"/>
-        <mass value="1"/>
+        <mass value="12"/>
         <inertia
           ixx="1.0" ixy="0.0" ixz="0.0"
           iyy="1.0" iyz="0.0"
@@ -195,11 +184,11 @@
     </collision>
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
-      <mass value="0.5"/>
+      <mass value="1.0"/>
       <inertia
-        ixx="1.0" ixy="0.0" ixz="0.0"
-        iyy="1.0" iyz="0.0"
-        izz="1.0"/>
+        ixx="0.4" ixy="0.0" ixz="0.0"
+        iyy="0.4" iyz="0.0"
+        izz="0.2"/>
     </inertial>
   </link>
 
@@ -218,11 +207,11 @@
     </collision>
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
-      <mass value="0.5"/>
+      <mass value="1.0"/>
       <inertia
-        ixx="1.0" ixy="0.0" ixz="0.0"
-        iyy="1.0" iyz="0.0"
-        izz="1.0"/>
+        ixx="0.4" ixy="0.0" ixz="0.0"
+        iyy="0.4" iyz="0.0"
+        izz="0.2"/>
     </inertial>
   </link>
 
@@ -241,7 +230,7 @@
     </collision>
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
-      <mass value="1.5"/>
+      <mass value="5.5"/>
       <inertia
         ixx="1.0" ixy="0.0" ixz="0.0"
         iyy="1.0" iyz="0.0"
@@ -277,14 +266,14 @@
 
   <joint name="camera" type="fixed">
     <parent link="servo_link"/>
-    <origin xyz="0.03 0  0" rpy="-1.57075 1.57075 0"/>
+    <origin xyz="0.03 0  0" rpy="-1.57075 0 -1.57075"/>
     <child link="camera_link"/>
     <axis xyz="0 0 1"/>
   </joint>
 
   <joint name="back_wheel" type="fixed">
     <parent link="base_link"/>
-    <origin xyz="-0.05 0  -0.06625" rpy="0 1.57075 0"/>
+    <origin xyz="-0.1 0  -0.06625" rpy="0 1.57075 0"/>
     <child link="back_wheel_link"/>
     <axis xyz="0 0 1"/>
   </joint>

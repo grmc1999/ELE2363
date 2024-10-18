@@ -15,6 +15,7 @@ setup(
         ('share/' + package_name, ['config/camera.yaml']),
         ('share/' + package_name, ['config/controllers.yaml']),
         ('share/' + package_name, ['config/gpg.urdf.xml']),
+        ('share/' + package_name, ['config/gpg_urdf.rviz']),
     ],
     install_requires=['setuptools'],
     zip_safe=True,

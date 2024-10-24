@@ -26,7 +26,11 @@ class cv_node(Node):
     def image_process_function(self,image):
         # code for pixel definition
         image=cv2.cvtColor(image,cv2.COLOR_BGR2HSV)[:,:,0]
+        print(image.shape)
         image=(self.lth<image)*(self.hth>image)
+        print(image.shape)
+        print(type(image))
+        #image=cv2.inRange(image,)
         v=np.mean(image,axis=0)
         u=np.mean(image,axis=1)
         return u,v

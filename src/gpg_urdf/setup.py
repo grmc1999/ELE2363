@@ -26,7 +26,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'urdf_node = gpg_urdf.urdf_node:main'
+            'urdf_node = gpg_urdf.urdf_node:main',
             'cv_node = gpg_urdf.cv_node:main'
         ],
     },

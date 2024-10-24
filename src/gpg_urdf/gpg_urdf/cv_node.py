@@ -34,7 +34,7 @@ class cv_node(Node):
         self.hth=float(self.get_parameter('hth').get_parameter_value().double_value)
         cv_image=self.cv_bridge.imgmsg_to_cv2(msg)
         
-        self.model(msg)
+        self.model.fromCameraInfo(msg)
 
         # image processing
         (u,v)=self.image_process_function(cv_image)

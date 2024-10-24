@@ -19,7 +19,7 @@ class cv_node(Node):
         self.cv_bridge=CvBridge()
         self.cv_subscription=self.create_subscription(Image,"/image",self.callback,10)
         #self.publisher_ = self.create_publisher(Image, '/processed_image', 10)
-        self.model=image_geometry.PinholeCamera()
+        self.model=image_geometry.PinholeCameraModel()
         
     def image_process_function(self,image):
         # code for pixel definition

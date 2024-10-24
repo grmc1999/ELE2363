@@ -178,7 +178,7 @@ def generate_launch_description():
     camera_bridge = Node(
         package="ros_gz_bridge",
         executable="parameter_bridge",
-        arguments=["/CameraInfo@sensor_msgs/msg/CameraInfo[gz.msgs.CameraInfo"],
+        arguments=["/camera_info@sensor_msgs/msg/CameraInfo[gz.msgs.CameraInfo"],
         output="both"
     )
 

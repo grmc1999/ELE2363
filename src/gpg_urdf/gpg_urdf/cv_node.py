@@ -17,7 +17,7 @@ class cv_node(Node):
         self.declare_parameter('lth',0.1)
         self.declare_parameter('hth',0.01)
         self.cv_bridge=CvBridge()
-        self.cv_subscription(Image,"/image",self.callback,10)
+        self.cv_subscription=self.create_subscription(Image,"/image",self.callback,10)
         #self.publisher_ = self.create_publisher(Image, '/processed_image', 10)
         self.model=image_geometry.PinholeCamera()
         

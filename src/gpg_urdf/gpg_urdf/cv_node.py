@@ -31,8 +31,8 @@ class cv_node(Node):
         print(image.shape)
         print(type(image))
         #image=cv2.inRange(image,)
-        v=np.mean(image,axis=0)
-        u=np.mean(image,axis=1)
+        v=np.argmax(np.sum(image,axis=0))
+        u=np.argmax(np.sum(image,axis=1))
         return u,v
     
     def callback(self,msg):

@@ -69,7 +69,7 @@ class cv_node(Node):
         self.servo_pos=self.servo_pos-line[1]
         FP=Float64MultiArray()
         FP.data=self.servo_pos
-        self.camera_publisher.publish(FP)
+        self.camera_publisher.publish([FP])
 
         #msg=self.bridge.cv2_to_imgmsg(self.cv_image)
     

@@ -17,6 +17,7 @@ class cv_node(Node):
         super().__init__('cv_node')
         self.declare_parameter('lth',50.)
         self.declare_parameter('hth',180.)
+        self.declare_parameter('C_k',0.01)
         self.cv_bridge=CvBridge()
         self.cv_subscription=self.create_subscription(Image,"/image",self.callback,10)
         self.ci_subscription=self.create_subscription(CameraInfo,"/camera_info",self.callback_camera_info,10)
@@ -51,6 +52,7 @@ class cv_node(Node):
     def callback(self,msg):
         self.lth=float(self.get_parameter('lth').get_parameter_value().double_value)
         self.hth=float(self.get_parameter('hth').get_parameter_value().double_value)
+        self.C_k=float(self.get_parameter('C_k').get_parameter_value().double_value)
         cv_image=self.cv_bridge.imgmsg_to_cv2(msg)
         
         
@@ -66,7 +68,7 @@ class cv_node(Node):
         print(np.arcsin(line[1]))
         print(np.arcsin(line[2]))
         #Minimize 2
-        self.servo_pos=self.servo_pos+line[1]
+        self.servo_pos=self.servo_pos+line[1]*self.C_k
         FP=Float64MultiArray()
         FP.data=[self.servo_pos]
         self.camera_publisher.publish(FP)

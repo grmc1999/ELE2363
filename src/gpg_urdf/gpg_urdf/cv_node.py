@@ -30,19 +30,17 @@ class cv_node(Node):
         upper_blue = np.array([self.hth,255,255])
         print(self.hth)
         print(self.lth)
-        print(image.shape)
         #image=(self.lth<image)*(self.hth>image
         image = cv2.inRange(image, lower_blue, upper_blue)
         #cv2.imshow("camera", image)   
         #k = cv2.waitKey(5) & 0xFF
         #if k == 27:
         #    cv2.destroyAllWindows()
-        print(image.shape)
-        print(type(image))
-        print(np.sum(image,axis=0))
         #image=cv2.inRange(image,)
         v=np.argmax(np.sum(image,axis=0))
         u=np.argmax(np.sum(image,axis=1))
+        print("u,v")
+        print(u,v)
         return u,v
     
     def callback(self,msg):
@@ -60,6 +58,8 @@ class cv_node(Node):
 
         # control servo
         print(np.arcsin(line[0]))
+        print(np.arcsin(line[1]))
+        print(np.arcsin(line[2]))
         #msg=self.bridge.cv2_to_imgmsg(self.cv_image)
     
     def callback_camera_info(self,msg):

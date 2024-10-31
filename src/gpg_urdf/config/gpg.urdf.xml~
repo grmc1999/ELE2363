@@ -1,0 +1,283 @@
+<?xml version="1.0"?>
+<robot name="my_gpg">
+
+  <gazebo>
+    <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+      <parameters>$(find gpg_urdf)/controllers.yaml</parameters>
+    </plugin>
+  </gazebo>
+
+  <ros2_control name="GazeboSimSystem" type="system">
+    <hardware>
+      <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+    </hardware>
+    
+    <joint name="left_wheel">
+      <command_interface name="velocity">
+        <param name="min">-1</param>
+        <param name="max">1</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>  
+    </joint>
+    <joint name="right_wheel">
+      <command_interface name="velocity">
+        <param name="min">-1</param>
+        <param name="max">1</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>  
+    </joint>
+    <joint name="servo">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+    </joint>
+    
+  </ros2_control>
+
+  <gazebo reference="base_link">
+    <material>Gazebo/Orange</material>
+    <mu1>0</mu1>
+    <mu2>0</mu2>
+  </gazebo>
+  <gazebo reference="servo_link">
+    <material>Gazebo/Orange</material>
+    <mu1>0</mu1>
+    <mu2>0</mu2>
+  </gazebo>
+  <gazebo reference="camera_link">
+    <material>Gazebo/Orange</material>
+    <mu1>0</mu1>
+    <mu2>0</mu2>
+  </gazebo>
+  <gazebo reference="right_wheel_link">
+    <material>Gazebo/Orange</material>
+    <mu1>0.5</mu1>
+    <mu2>0.5</mu2>
+  </gazebo>
+  <gazebo reference="left_wheel_link">
+    <material>Gazebo/Orange</material>
+    <mu1>0.5</mu1>
+    <mu2>0.5</mu2>
+  </gazebo>
+  <gazebo reference="back_wheel_link">
+    <material>Gazebo/Orange</material>
+    <mu1>0.0</mu1>
+    <mu2>0.0</mu2>
+  </gazebo>
+
+
+  <gazebo reference="camera_link">
+    <sensor type="camera" name="camera_name">
+      <pose> 0 0 0 1.57 -1.57 0 </pose>
+      <gz_frame_id >camera_link</gz_frame_id>
+      <visualize>true</visualize>
+      <update_rate>30.0</update_rate>
+      <topic>/image</topic>
+      <camera name="head">
+        <camera_info_topic>/camera_info</camera_info_topic>
+        <horizontal_fov>0.915</horizontal_fov>
+        <image>
+          <width>320</width>
+          <height>240</height>
+          <format>R8G8B8</format>
+          <distortionK1>0.080938</distortionK1>
+          <distortionK2>-0.257429</distortionK2>
+          <distortionK3>0.0</distortionK3>
+        </image>
+      </camera>
+      <!--<plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>gpg/camera_name</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>camera_link</frameName>
+        <distortionK1>0.080938</distortionK1>
+        <distortionK2>-0.257429</distortionK2>
+        <distortionK3>0.0</distortionK3>
+      </plugin>-->
+    </sensor>
+  </gazebo>
+
+
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.15 0.15 0.075"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.15 0.15 0.075"/>
+      </geometry>
+    </collision>
+    <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="12"/>
+        <inertia
+          ixx="1.0" ixy="0.0" ixz="0.0"
+          iyy="1.0" iyz="0.0"
+          izz="1.0"/>
+    </inertial>
+  </link>
+
+  <link name="servo_link">
+    <visual>
+      <geometry>
+          <box size="0.05 0.05 0.05"/>
+      </geometry>
+      <origin xyz="0.0 0.0 0.0"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0"/>
+    </inertial>
+  </link>
+
+  <link name="camera_link">
+    <visual>
+      <geometry>
+          <box size="0.01 0.01 0.01"/>
+      </geometry>
+      <origin xyz="0.0 0.0 0.0"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.01"/>
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0"/>
+    </inertial>
+  </link>
+
+  <link name="left_wheel_link">
+    <visual>
+      <geometry>
+        <cylinder radius="0.065" length="0.025"/>
+      </geometry>
+      <origin xyz="0 0.0 0.0" rpy="1.57075 0 0"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.57075 0 0"/>
+      <geometry>
+        <cylinder radius="0.065" length="0.025"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1.0"/>
+      <inertia
+        ixx="0.4" ixy="0.0" ixz="0.0"
+        iyy="0.4" iyz="0.0"
+        izz="0.2"/>
+    </inertial>
+  </link>
+
+  <link name="right_wheel_link">
+    <visual>
+      <geometry>
+        <cylinder radius="0.065" length="0.025"/>
+      </geometry>
+      <origin xyz="0 0.0 0.0" rpy="1.57075 0 0"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.57075 0 0"/>
+      <geometry>
+        <cylinder radius="0.065" length="0.025"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1.0"/>
+      <inertia
+        ixx="0.4" ixy="0.0" ixz="0.0"
+        iyy="0.4" iyz="0.0"
+        izz="0.2"/>
+    </inertial>
+  </link>
+
+<link name="back_wheel_link">
+    <visual>
+      <geometry>
+        <cylinder radius="0.02875" length="0.025"/>
+      </geometry>
+      <origin xyz="0 0.0 0.0" rpy="1.57075 0 0"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.57075 0 0"/>
+      <geometry>
+        <cylinder radius="0.02875" length="0.025"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="5.5"/>
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0"/>
+    </inertial>
+  </link>
+
+  <joint name="left_wheel" type="continuous">
+      
+    <parent link="base_link"/>
+    <child link="left_wheel_link"/>
+    <origin rpy="0 0 0" xyz="0.0 0.10 -0.03"/>
+    <axis xyz="0 1 0"/>
+      
+  </joint>
+
+  <joint name="right_wheel" type="continuous">
+    <parent link="base_link"/>
+    <child link="right_wheel_link"/>
+    <origin xyz="0 -0.10 -0.03"/>
+    <axis xyz="0 1 0"/>
+      
+  </joint>
+
+  <joint name="servo" type="revolute">
+    <limit effort="1000.0" lower="-1.57" upper="1.57" velocity="0.5"/>
+    <parent link="base_link"/>
+    <origin xyz="0.10 0  0.1"/>
+    <child link="servo_link"/>
+    <axis xyz="0 0 1"/>
+      
+  </joint>
+
+  <joint name="camera" type="fixed">
+    <parent link="servo_link"/>
+    <origin xyz="0.03 0  0" rpy="-1.57075 0 -1.57075"/>
+    <child link="camera_link"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <joint name="back_wheel" type="fixed">
+    <parent link="base_link"/>
+    <origin xyz="-0.1 0  -0.06625" rpy="0 1.57075 0"/>
+    <child link="back_wheel_link"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+
+
+</robot>

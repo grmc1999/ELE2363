@@ -256,7 +256,7 @@
   </joint>
 
   <joint name="servo" type="revolute">
-    <limit effort="1000.0" lower="-1.57" upper="1.57" velocity="0.5"/>
+    <limit effort="1000.0" lower="-0.1" upper="0.1" velocity="0.5"/>
     <parent link="base_link"/>
     <origin xyz="0.10 0  0.03"/>
     <child link="servo_link"/>

@@ -1,7 +1,7 @@
 import rclpy
 from rclpy.node import Node
 
-from std_msgs.msg import String
+from std_msgs.msg import String,Float64MultiArray
 from sensor_msgs.msg import Image
 from sensor_msgs.msg import CameraInfo
 import image_geometry
@@ -20,8 +20,13 @@ class cv_node(Node):
         self.cv_bridge=CvBridge()
         self.cv_subscription=self.create_subscription(Image,"/image",self.callback,10)
         self.ci_subscription=self.create_subscription(CameraInfo,"/camera_info",self.callback_camera_info,10)
+        self.camera_publisher = self.create_publisher(
+            Float64MultiArray,
+            '/servo_controller/commands',10)
         #self.publisher_ = self.create_publisher(Image, '/processed_image', 10)
         self.model=image_geometry.PinholeCameraModel()
+
+        self.servo_pos=0
         
     def image_process_function(self,image):
         # code for pixel definition
@@ -60,6 +65,12 @@ class cv_node(Node):
         print(np.arcsin(line[0]))
         print(np.arcsin(line[1]))
         print(np.arcsin(line[2]))
+        #Minimize 2
+        self.servo_pos=self.servo_pos-line[1]
+        FP=Float64MultiArray()
+        FP.data=self.servo_pos
+        self.camera_publisher.publish(FP)
+
         #msg=self.bridge.cv2_to_imgmsg(self.cv_image)
     
     def callback_camera_info(self,msg):

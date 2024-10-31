@@ -78,8 +78,12 @@ class cv_node(Node):
     def find_contact(self):
         self.camera_height=float(self.get_parameter('camera_height').get_parameter_value().double_value)
         alpha=-self.camera_height/self.line[1]
-        z=alpha*self.line[2]
-        x=alpha*self.line[0]
+        if np.abs(alpha)>10000:
+            z=None
+            x=None
+        else:
+            z=alpha*self.line[2]
+            x=alpha*self.line[0]
         return x,z
     
     def callback(self,msg):
@@ -106,18 +110,21 @@ class cv_node(Node):
 
         x,z=self.find_contact()
 
-        self.rp=PointStamped()
-        
-        self.rp.header.frame_id='camera_link'
-        #self.rp.header.frame_id='base_link'
-        self.rp.point.x=x
-        self.rp.point.z=z
-        self.rp.point.y=0.
+        if x!=None:
+            self.rp=PointStamped()
 
-        self.rp=self.buffer.transform(self.rp,"odom")
+            self.rp.header.frame_id='camera_link'
+            #self.rp.header.frame_id='base_link'
+            self.rp.point.x=x
+            self.rp.point.z=z
+            self.rp.point.y=0.
+
+            self.rp=self.buffer.transform(self.rp,"odom")
 
 
-        self.goal_publisher.publish(self.rp)
+            self.goal_publisher.publish(self.rp)
+        else:
+            print("no object detected")
         # Transform point stamped to base
         #self.rp.theta=np.random.uniform(-np.pi,np.pi)
         

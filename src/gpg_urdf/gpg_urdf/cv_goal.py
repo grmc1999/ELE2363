@@ -108,7 +108,7 @@ class cv_node(Node):
 
         self.rp=PointStamped()
         
-        self.rp.header.frame_id='base_link'
+        self.rp.header.frame_id='camera_link'
         #self.rp.header.frame_id='base_link'
         self.rp.point.x=x
         self.rp.point.y=y

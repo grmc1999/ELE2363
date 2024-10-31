@@ -60,7 +60,10 @@ class cv_node(Node):
         # image processing
         (u,v)=self.image_process_function(cv_image)
 
-        line=self.model.projectPixelTo3dRay((u,v))
+        try:
+            line=self.model.projectPixelTo3dRay((u,v))
+        except:
+            print("some error defining line")
         print(line)
 
         # control servo

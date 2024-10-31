@@ -114,6 +114,14 @@ def generate_launch_description():
         arguments=["diff_drive_controller", "-c", "/controller_manager"],
     )
 
+    control_goal = Node(
+        package="turtlesim_control",
+        executable="turtlesim_control_node_tf2")
+    
+    cv_goal = Node(
+        package="gpg_urdf",
+        executable="cv_goal")
+
     # Delay rviz start after `joint_state_broadcaster`
     delay_rviz_after_joint_state_broadcaster_spawner = RegisterEventHandler(
         event_handler=OnProcessExit(
@@ -129,6 +137,8 @@ def generate_launch_description():
             on_exit=[
                 robot_controller_spawner,
                 servo_controller_spawner,
+                control_goal,
+                cv_goal
                 #gpg_remote_broadcaster_spawner
                 ],
         )
@@ -200,13 +210,7 @@ def generate_launch_description():
         )
     )
 
-    control_goal = Node(
-        package="turtlesim_control",
-        executable="turtlesim_control_node_tf2")
     
-    control_goal = Node(
-        package="gpg_urdf",
-        executable="cv_goal")
 
 
 
@@ -220,8 +224,6 @@ def generate_launch_description():
         joint_state_broadcaster_spawner,
         delay_rviz_after_joint_state_broadcaster_spawner,
         delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,
-        control_goal,
-        control_node
     ]
 
     return LaunchDescription(nodes)

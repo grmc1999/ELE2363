@@ -59,7 +59,7 @@ class cv_node(Node):
         print(line)
 
         # control servo
-        print(np.arcsin(line[2]))
+        print(np.arcsin(line[0]))
         #msg=self.bridge.cv2_to_imgmsg(self.cv_image)
     
     def callback_camera_info(self,msg):

@@ -30,6 +30,8 @@ class cv_node(Node):
         print(self.lth)
         print(image.shape)
         image=(self.lth<image)*(self.hth>image)
+        cv2.imshow("camera", image)   
+        cv2.waitKey(1)
         print(image.shape)
         print(type(image))
         #image=cv2.inRange(image,)

@@ -30,12 +30,13 @@ class cv_node(Node):
         print(self.lth)
         print(image.shape)
         image=(self.lth<image)*(self.hth>image)
-        cv2.imshow("camera", image)   
-        k = cv2.waitKey(5) & 0xFF
-        if k == 27:
-            cv2.destroyAllWindows()
+        #cv2.imshow("camera", image)   
+        #k = cv2.waitKey(5) & 0xFF
+        #if k == 27:
+        #    cv2.destroyAllWindows()
         print(image.shape)
         print(type(image))
+        print(np.sum(image,axis=0))
         #image=cv2.inRange(image,)
         v=np.argmax(np.sum(image,axis=0))
         u=np.argmax(np.sum(image,axis=1))

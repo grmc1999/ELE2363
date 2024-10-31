@@ -29,7 +29,7 @@ class cv_node(Node):
 
         self.servo_pos=0
         
-    def image_process_function(self,rgb):
+    def dumb_image_process_function(self,rgb):
         # code for pixel definition
         hsv=cv2.cvtColor(rgb,cv2.COLOR_BGR2HSV)
         lower_blue = np.array([self.lth,50,50])
@@ -42,6 +42,27 @@ class cv_node(Node):
 
         v=np.argmax(np.sum(image,axis=0))
         u=np.argmax(np.sum(image,axis=1))
+        print("u,v")
+        print(u,v)
+        cv2.imshow("filter",image)
+        cv2.imshow("aim",cv2.circle(rgb,(u,v),radius=10,color=(0,0,255),thickness=2))
+        cv2.waitKey(1)
+        return u,v
+    
+    def image_process_function(self,rgb):
+        # code for pixel definition
+        hsv=cv2.cvtColor(rgb,cv2.COLOR_BGR2HSV)
+        lower_blue = np.array([self.lth,50,50])
+        upper_blue = np.array([self.hth,255,255])
+        print(self.hth)
+        print(self.lth)
+        #image=(self.lth<image)*(self.hth>image
+        image = cv2.inRange(hsv, lower_blue, upper_blue)
+        #cv2.imshow("camera", image)   
+
+        M=cv2.moments(image)
+        u=int(M['m10']/M['m00'])
+        v=int(M['m01']/M['m00'])
         print("u,v")
         print(u,v)
         cv2.imshow("filter",image)

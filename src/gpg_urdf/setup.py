@@ -13,8 +13,6 @@ setup(
         ('share/' + package_name, ['launch/gpg_sim.launch.py']),
         ('share/' + package_name, ['launch/gpg_sim_futebol.launch.py']),
         ('share/' + package_name, ['package.xml']),
-        ('share/' + package_name, ['gpg_urdf/cv_node.py']),
-        ('share/' + package_name, ['gpg_urdf/cv_goal.py']),
         ('share/' + package_name, ['config/world_1.sdf']),
         ('share/' + package_name, ['config/camera.yaml']),
         ('share/' + package_name, ['config/controllers.yaml']),

@@ -201,12 +201,12 @@ def generate_launch_description():
     )
 
     control_goal = Node(
-        package="turtlesim_control_node_tf2",
-        executable="control_tf2")
+        package="turtlesim_control",
+        executable="turtlesim_control_node_tf2")
     
     control_goal = Node(
-        package="cv_goal",
-        executable="control_tf2")
+        package="gpg_urdf",
+        executable="cv_goal")
 
 
 

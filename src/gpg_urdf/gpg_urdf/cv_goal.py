@@ -8,7 +8,7 @@ import image_geometry
 from cv_bridge import CvBridge
 import cv2
 import numpy as np
-from turtlesim.msg import Pose
+from geometry_msgs.msg import Twist,Pose2D,TwistStamped,PointStamped
 
 
 
@@ -24,7 +24,7 @@ class cv_node(Node):
         self.cv_subscription=self.create_subscription(Image,"/image",self.callback,10)
         self.ci_subscription=self.create_subscription(CameraInfo,"/camera_info",self.callback_camera_info,10)
         self.camera_publisher = self.create_publisher(Float64MultiArray,'/servo_controller/commands',10)
-        self.goal_publisher = self.create_publisher(Pose,'local/goal',10)
+        self.goal_publisher = self.create_publisher(PointStamped,'local/goal',10)
         #self.publisher_ = self.create_publisher(Image, '/processed_image', 10)
         self.model=image_geometry.PinholeCameraModel()
 
@@ -101,10 +101,14 @@ class cv_node(Node):
 
         x,y=self.find_contact()
 
-        self.rp=Pose()
-        self.rp.x=x
-        self.rp.y=y
+        self.rp=PointStamped()
+        self.rp.header.frame_id='base_link'
+        #self.rp.header.frame_id='base_link'
+        self.rp.point.x=x
+        self.rp.point.y=y
+        self.rp.point.y=0
         self.goal_publisher.publish(self.rp)
+        # Transform point stamped to base
         #self.rp.theta=np.random.uniform(-np.pi,np.pi)
         
     

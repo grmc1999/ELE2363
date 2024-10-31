@@ -31,7 +31,9 @@ class cv_node(Node):
         print(image.shape)
         image=(self.lth<image)*(self.hth>image)
         cv2.imshow("camera", image)   
-        cv2.waitKey(1)
+        k = cv2.waitKey(5) & 0xFF
+        if k == 27:
+            cv2.destroyAllWindows()
         print(image.shape)
         print(type(image))
         #image=cv2.inRange(image,)

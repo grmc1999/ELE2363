@@ -145,7 +145,7 @@ def generate_launch_description():
                 ])
             ]),
             launch_arguments={
-               'gz_args':['-r ',FindPackageShare("gpg_urdf"), "/world_1.sdf"],
+               'gz_args':['-r ',FindPackageShare("gpg_urdf"), "/world_ball.sdf"],
                 }.items()
         )
     ])

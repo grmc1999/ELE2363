@@ -26,10 +26,13 @@ class cv_node(Node):
     def image_process_function(self,image):
         # code for pixel definition
         image=cv2.cvtColor(image,cv2.COLOR_BGR2HSV)[:,:,0]
+        lower_blue = np.array([self.lth,50,50])
+        upper_blue = np.array([self.hth,255,255])
         print(self.hth)
         print(self.lth)
         print(image.shape)
-        image=(self.lth<image)*(self.hth>image)
+        #image=(self.lth<image)*(self.hth>image
+        image = cv2.inRange(image, lower_blue, upper_blue)
         #cv2.imshow("camera", image)   
         #k = cv2.waitKey(5) & 0xFF
         #if k == 27:

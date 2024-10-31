@@ -220,7 +220,8 @@ def generate_launch_description():
         joint_state_broadcaster_spawner,
         delay_rviz_after_joint_state_broadcaster_spawner,
         delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,
-        control_goal
+        control_goal,
+        control_node
     ]
 
     return LaunchDescription(nodes)

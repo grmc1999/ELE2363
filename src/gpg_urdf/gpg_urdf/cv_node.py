@@ -26,6 +26,8 @@ class cv_node(Node):
     def image_process_function(self,image):
         # code for pixel definition
         image=cv2.cvtColor(image,cv2.COLOR_BGR2HSV)[:,:,0]
+        print(self.hth)
+        print(self.lth)
         print(image.shape)
         image=(self.lth<image)*(self.hth>image)
         print(image.shape)
@@ -47,6 +49,9 @@ class cv_node(Node):
 
         line=self.model.projectPixelTo3dRay((u,v))
         print(line)
+
+        # control servo
+        np.arcsin(line[2])
         #msg=self.bridge.cv2_to_imgmsg(self.cv_image)
     
     def callback_camera_info(self,msg):

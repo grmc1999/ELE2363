@@ -54,8 +54,6 @@ class cv_node(Node):
         hsv=cv2.cvtColor(rgb,cv2.COLOR_BGR2HSV)
         lower_blue = np.array([self.lth,50,50])
         upper_blue = np.array([self.hth,255,255])
-        print(self.hth)
-        print(self.lth)
         #image=(self.lth<image)*(self.hth>image
         image = cv2.inRange(hsv, lower_blue, upper_blue)
         #cv2.imshow("camera", image)   
@@ -64,10 +62,8 @@ class cv_node(Node):
         if M['m00']==0:
             u,v=(int(320/2),int(240/2))
         else:
-            v=int(M['m10']/M['m00'])
-            u=int(M['m01']/M['m00'])
-        print("u,v")
-        print(u,v)
+            u=int(M['m10']/M['m00'])
+            v=int(M['m01']/M['m00'])
         cv2.imshow("filter",image)
         cv2.imshow("aim",cv2.circle(rgb,(u,v),radius=10,color=(0,0,255),thickness=2))
         cv2.waitKey(1)
@@ -89,15 +85,12 @@ class cv_node(Node):
         except:
             line=None
             print("some error defining line")
-        print(line)
+            return
 
         # control servo
-        print(np.arcsin(line[0]))
-        print(np.arcsin(line[1]))
-        print(np.arcsin(line[2]))
         #Minimize 2
         #if self.servo_pos<1.5 and self.servo_pos>-1.5:
-        self.servo_pos=self.servo_pos-line[1]*self.C_k
+        self.servo_pos=self.servo_pos-line[0]*self.C_k
         FP=Float64MultiArray()
         FP.data=[self.servo_pos]
         self.camera_publisher.publish(FP)

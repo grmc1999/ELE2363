@@ -66,7 +66,7 @@ class cv_node(Node):
         print(np.arcsin(line[1]))
         print(np.arcsin(line[2]))
         #Minimize 2
-        self.servo_pos=self.servo_pos-line[1]
+        self.servo_pos=self.servo_pos+line[1]
         FP=Float64MultiArray()
         FP.data=[self.servo_pos]
         self.camera_publisher.publish(FP)

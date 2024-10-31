@@ -32,7 +32,7 @@ class cv_node(Node):
         print(self.lth)
         print(image.shape)
         #image=(self.lth<image)*(self.hth>image
-        image = cv2.inRange(image, lower_blue, upper_blue)
+        image = cv2.inRange(image, lower_blue, upper_blue)[:,:,0]
         #cv2.imshow("camera", image)   
         #k = cv2.waitKey(5) & 0xFF
         #if k == 27:
@@ -59,7 +59,7 @@ class cv_node(Node):
         print(line)
 
         # control servo
-        np.arcsin(line[2])
+        print(np.arcsin(line[2]))
         #msg=self.bridge.cv2_to_imgmsg(self.cv_image)
     
     def callback_camera_info(self,msg):

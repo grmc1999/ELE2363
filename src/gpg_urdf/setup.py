@@ -1,7 +1,7 @@
 from setuptools import find_packages, setup
 
 package_name = 'gpg_urdf'
-package_name = 'turtlesim_control'
+#spackage_name = 'turtlesim_control'
 
 setup(
     name=package_name,

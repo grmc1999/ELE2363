@@ -210,6 +210,16 @@ def generate_launch_description():
         )
     )
 
+    _after_image_bridge = RegisterEventHandler(
+        event_handler=OnProcessExit(
+            target_action=image_bridge,
+            on_exit=[
+                control_goal,
+                cv_goal
+                #gpg_remote_broadcaster_spawner
+                ],
+        )
+    )
     
 
 
@@ -224,6 +234,7 @@ def generate_launch_description():
         joint_state_broadcaster_spawner,
         delay_rviz_after_joint_state_broadcaster_spawner,
         delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,
+        _after_image_bridge
     ]
 
     return LaunchDescription(nodes)

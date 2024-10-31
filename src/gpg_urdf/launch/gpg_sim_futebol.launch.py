@@ -215,7 +215,7 @@ def generate_launch_description():
             target_action=image_bridge,
             on_exit=[
                 control_goal,
-                cv_goal
+#                cv_goal
                 #gpg_remote_broadcaster_spawner
                 ],
         )

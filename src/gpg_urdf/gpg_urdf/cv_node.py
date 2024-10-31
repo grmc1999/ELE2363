@@ -25,7 +25,7 @@ class cv_node(Node):
         
     def image_process_function(self,image):
         # code for pixel definition
-        image=cv2.cvtColor(image,cv2.COLOR_BGR2HSV)[:,:,0]
+        image=cv2.cvtColor(image,cv2.COLOR_BGR2HSV)
         lower_blue = np.array([self.lth,50,50])
         upper_blue = np.array([self.hth,255,255])
         print(self.hth)

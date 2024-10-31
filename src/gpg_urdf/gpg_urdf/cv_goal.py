@@ -106,7 +106,7 @@ class cv_node(Node):
         #self.rp.header.frame_id='base_link'
         self.rp.point.x=x
         self.rp.point.y=y
-        self.rp.point.y=0
+        self.rp.point.y=0.
         self.goal_publisher.publish(self.rp)
         # Transform point stamped to base
         #self.rp.theta=np.random.uniform(-np.pi,np.pi)

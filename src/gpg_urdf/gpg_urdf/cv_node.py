@@ -62,7 +62,7 @@ class cv_node(Node):
 
         M=cv2.moments(image)
         if M['m00']==0:
-            u,v=(320/2,240/2)
+            u,v=(int(320/2),int(240/2))
         else:
             u=int(M['m10']/M['m00'])
             v=int(M['m01']/M['m00'])

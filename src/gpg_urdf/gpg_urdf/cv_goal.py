@@ -78,9 +78,9 @@ class cv_node(Node):
     def find_contact(self):
         self.camera_height=float(self.get_parameter('camera_height').get_parameter_value().double_value)
         alpha=-self.camera_height/self.line[1]
-        x=alpha*self.line[2]
-        y=alpha*self.line[0]
-        return x,y
+        z=alpha*self.line[2]
+        x=alpha*self.line[0]
+        return x,z
     
     def callback(self,msg):
         self.lth=float(self.get_parameter('lth').get_parameter_value().double_value)
@@ -104,14 +104,14 @@ class cv_node(Node):
         FP.data=[self.servo_pos]
         self.camera_publisher.publish(FP)
 
-        x,y=self.find_contact()
+        x,z=self.find_contact()
 
         self.rp=PointStamped()
         
         self.rp.header.frame_id='camera_link'
         #self.rp.header.frame_id='base_link'
         self.rp.point.x=x
-        self.rp.point.y=y
+        self.rp.point.z=z
         self.rp.point.y=0.
 
         self.rp=self.buffer.transform(self.rp,"odom")

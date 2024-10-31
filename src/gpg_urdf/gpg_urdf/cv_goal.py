@@ -9,6 +9,8 @@ from cv_bridge import CvBridge
 import cv2
 import numpy as np
 from geometry_msgs.msg import Twist,Pose2D,TwistStamped,PointStamped
+import tf2_ros
+import tf2_geometry_msgs
 
 
 
@@ -29,6 +31,9 @@ class cv_node(Node):
         self.model=image_geometry.PinholeCameraModel()
 
         self.servo_pos=0
+
+        self.buffer=tf2_ros.Buffer()
+        self.tf_listener=tf2_ros.TransformListener(self.buffer, self)
         
     def dumb_image_process_function(self,rgb):
         # code for pixel definition
@@ -102,11 +107,16 @@ class cv_node(Node):
         x,y=self.find_contact()
 
         self.rp=PointStamped()
+        
         self.rp.header.frame_id='base_link'
         #self.rp.header.frame_id='base_link'
         self.rp.point.x=x
         self.rp.point.y=y
         self.rp.point.y=0.
+
+        self.rp=self.buffer.transform(self.goal_pose,"odom")
+
+
         self.goal_publisher.publish(self.rp)
         # Transform point stamped to base
         #self.rp.theta=np.random.uniform(-np.pi,np.pi)

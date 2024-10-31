@@ -32,7 +32,7 @@ class cv_node(Node):
         print(self.lth)
         print(image.shape)
         #image=(self.lth<image)*(self.hth>image
-        image = cv2.inRange(image, lower_blue, upper_blue)[:,:,0]
+        image = cv2.inRange(image, lower_blue, upper_blue)
         #cv2.imshow("camera", image)   
         #k = cv2.waitKey(5) & 0xFF
         #if k == 27:

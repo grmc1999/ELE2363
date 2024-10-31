@@ -114,7 +114,7 @@ class cv_node(Node):
         self.rp.point.y=y
         self.rp.point.y=0.
 
-        self.rp=self.buffer.transform(self.goal_pose,"odom")
+        self.rp=self.buffer.transform(self.rp,"odom")
 
 
         self.goal_publisher.publish(self.rp)

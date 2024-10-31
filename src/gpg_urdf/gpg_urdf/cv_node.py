@@ -15,8 +15,8 @@ class cv_node(Node):
 
     def __init__(self):
         super().__init__('cv_node')
-        self.declare_parameter('lth',50)
-        self.declare_parameter('hth',180)
+        self.declare_parameter('lth',50.)
+        self.declare_parameter('hth',180.)
         self.cv_bridge=CvBridge()
         self.cv_subscription=self.create_subscription(Image,"/image",self.callback,10)
         self.ci_subscription=self.create_subscription(CameraInfo,"/camera_info",self.callback_camera_info,10)

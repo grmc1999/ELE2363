@@ -9,10 +9,13 @@ RUN apt-get install ros-${ROS_DISTRO}-controller-manager -y
 RUN apt-get update -y
 RUN apt-get install ros-${ROS_DISTRO}-ros-gz -y
 RUN apt-get install ros-${ROS_DISTRO}-gz-ros2-control -y
-RUN apt-get install ros-rolling-ros2-control -y
-RUN apt-get install ros-rolling-ros2-controllers -y
+
+RUN apt-get install ros-{ROS_DISTRO}-ros2-control -y
+RUN apt-get install ros-{ROS_DISTRO}-ros2-controllers -y
 RUN apt-get install ros-${ROS_DISTRO}-turtlesim -y
 RUN apt-get install ros-${ROS_DISTRO}-tf-transformations -y
+RUN apt-get update
+RUN apt-get install ros-jazzy-gz-ros2-control
 
 
 

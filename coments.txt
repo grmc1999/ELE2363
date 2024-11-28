@@ -1,0 +1,4 @@
+professor,
+the src code is running as expected.
+The only thing is that it seems that the is not way to launch every thing, since the world needs to be defined manually. Some of the settings are not saved.
+To run the code, just launch gpg_urdf gpg_sim.launch, run nodes gpg_urf cv_goal, run nodes turtlesim_control turtlesim_control_node_tf2

@@ -44,7 +44,7 @@ def generate_launch_description():
             ' ',
             PathJoinSubstitution(
                 [FindPackageShare('gpg_urdf'),
-                 'gpg_unstable_2.urdf.xml']
+                 'gpg_unstable.urdf.xml']
             ),
         ]
     )#/home/ros2_ws/install/gpg_urdf/share/gpg_urdf/controllers.yaml

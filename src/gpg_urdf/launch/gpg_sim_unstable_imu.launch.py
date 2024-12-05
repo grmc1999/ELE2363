@@ -44,7 +44,7 @@ def generate_launch_description():
             ' ',
             PathJoinSubstitution(
                 [FindPackageShare('gpg_urdf'),
-                 'gpg_unstable.urdf.xml']
+                 'gpg_unstable_2.urdf.xml']
             ),
         ]
     )#/home/ros2_ws/install/gpg_urdf/share/gpg_urdf/controllers.yaml
@@ -223,7 +223,7 @@ def generate_launch_description():
         camera_bridge,
         image_bridge,
         imu_bridge,
-        #set_pose_bridge,
+        set_pose_bridge,
         robot_publisher,
         gz_launch,
         delay_spawn_after_robot_publisher,

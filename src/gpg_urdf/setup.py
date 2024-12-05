@@ -20,6 +20,7 @@ setup(
         ('share/' + package_name, ['config/controllers.yaml']),
         ('share/' + package_name, ['config/gpg.urdf.xml']),
         ('share/' + package_name, ['config/gpg_unstable.urdf.xml']),
+        ('share/' + package_name, ['config/gpg_unstable_2.urdf.xml']),
         ('share/' + package_name, ['config/gpg_urdf.rviz']),
         ('share/' + package_name, ['config/gpg_urdf_ball.rviz']),
     ],
